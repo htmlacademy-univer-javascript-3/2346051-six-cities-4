@@ -1,10 +1,13 @@
-import CityCard from '../../components/city-card/city-card';
+import { Offer } from '../../types/offer';
+import OfferList from '../../components/offer-list/offer-list';
+import { Link } from 'react-router-dom';
 
 type MainScreenProps = {
     placesCount: number;
+    offers: Offer[];
   }
 
-function MainScreen({placesCount}: MainScreenProps): JSX.Element {
+function MainScreen({placesCount, offers}: MainScreenProps): JSX.Element {
   return (
     <div className="page page--gray page--main">
       <header className="header">
@@ -22,7 +25,9 @@ function MainScreen({placesCount}: MainScreenProps): JSX.Element {
                     <div className="header__avatar-wrapper user__avatar-wrapper">
                     </div>
                     <span className="header__user-name user__name">Oliver.conner@gmail.com</span>
-                    <span className="header__favorite-count">3</span>
+                    <Link to="/favorites">
+                      <span className="header__favorite-count">3</span>
+                    </Link>
                   </a>
                 </li>
                 <li className="header__nav-item">
@@ -94,13 +99,7 @@ function MainScreen({placesCount}: MainScreenProps): JSX.Element {
                   <li className="places__option" tabIndex={0}>Top rated first</li>
                 </ul>
               </form>
-              <div className="cities__places-list places__list tabs__content">
-                <CityCard />
-                <CityCard />
-                <CityCard />
-                <CityCard />
-                <CityCard />
-              </div>
+              <OfferList offers={offers} />
             </section>
             <div className="cities__right-section">
               <section className="cities__map map"></section>
