@@ -1,7 +1,7 @@
 import { Offer } from '../types/offer';
-import { reviews } from './reviews';
+import { REVIEWS } from './reviews';
 
-export const offers: Offer[] = [
+export const OFFERS: Offer[] = [
   {
     id: '1',
     image: ['img/apartment-01.jpg'],
@@ -11,7 +11,7 @@ export const offers: Offer[] = [
     type: 'Apartment',
     isFavorite: false,
     rating: 4,
-    reviews: [reviews[0]]
+    reviews: [REVIEWS[0]]
   },
   {
     id: '2',
@@ -22,7 +22,7 @@ export const offers: Offer[] = [
     type: 'Room',
     isFavorite: true,
     rating: 4,
-    reviews: [reviews[1]]
+    reviews: [REVIEWS[1]]
   },
   {
     id: '3',
@@ -32,8 +32,8 @@ export const offers: Offer[] = [
     title: 'Canal View Prinsengracht',
     type: 'Apartment',
     isFavorite: false,
-    rating: 4,
-    reviews: [reviews[2]]
+    rating: 4.7,
+    reviews: [REVIEWS[2]]
   },
   {
     id: '4',
@@ -44,6 +44,6 @@ export const offers: Offer[] = [
     type: 'Apartment',
     isFavorite: true,
     rating: 5,
-    reviews: [reviews[3]]
+    reviews: [REVIEWS[3]]
   },
 ];

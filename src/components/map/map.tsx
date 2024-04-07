@@ -8,7 +8,7 @@ import 'leaflet/dist/leaflet.css';
 type MapProps = {
   city: City;
   points: Point[];
-  selectedPoint: Point | undefined;
+  selectedPoint?: Point;
 }
 
 function Map(props: MapProps): JSX.Element {

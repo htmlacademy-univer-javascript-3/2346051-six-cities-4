@@ -1,6 +1,7 @@
 import { Offer } from '../../types/offer';
-import Card from '../../components/city-card/city-card';
 import { Link } from 'react-router-dom';
+import { typeOfCardList } from '../../const';
+import OfferList from '../../components/offer-list/offer-list';
 
 type FavoritesScreenProps = {
   offers: Offer[];
@@ -51,11 +52,7 @@ function FavoritesScreen({offers}: FavoritesScreenProps): JSX.Element {
                     </a>
                   </div>
                 </div>
-                <div className="favorites__places">
-                  {offers.map((offer) =>
-                    <Card key={offer.id} offer={offer}/>
-                  )}
-                </div>
+                <OfferList offers={offers} listType={typeOfCardList.favourites} />
               </li>
             </ul>
           </section>

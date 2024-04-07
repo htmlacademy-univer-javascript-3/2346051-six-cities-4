@@ -7,29 +7,29 @@ import OfferScreen from '../../pages/offer-screen/offer-screen.tsx';
 import PrivateRoute from '../private-route/private-route.tsx';
 import { AppRoute, AuthorizationStatus } from '../../const.ts';
 import { Offer } from '../../types/offer';
+import { OFFERS } from '../../mocks/offers.ts';
 
 type AppScreenProps = {
   placesCount: number;
-  offers: Offer[];
 }
 
-function App({placesCount, offers}: AppScreenProps): JSX.Element {
-  const favourites: Offer[] = offers.filter((o) => o.isFavorite);
+function App({placesCount}: AppScreenProps): JSX.Element {
+  const favourites: Offer[] = OFFERS.filter((o) => o.isFavorite);
   return (
     <BrowserRouter>
       <Routes>
         <Route path="*" element={<NotFoundScreen/>} />
-        <Route path={AppRoute.Main} element={<MainScreen placesCount={placesCount} offers={offers}/>} />
+        <Route path={AppRoute.Main} element={<MainScreen placesCount={placesCount} offers={OFFERS}/>} />
         <Route
           path={AppRoute.Favorites}
           element={
-            <PrivateRoute authorizationStatus={AuthorizationStatus.NoAuth} >
+            <PrivateRoute authorizationStatus={AuthorizationStatus.Auth} >
               <FavoritesScreen offers={favourites}/>
             </PrivateRoute>
           }
         />
         <Route path={AppRoute.Login} element={<LoginScreen/>} />
-        <Route path={AppRoute.Offer} element={<OfferScreen/>} />
+        <Route path={AppRoute.Offer} element={<OfferScreen offer={OFFERS[2]}/>} />
       </Routes>
     </BrowserRouter>
   );
