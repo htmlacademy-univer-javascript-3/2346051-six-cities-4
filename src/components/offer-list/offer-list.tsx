@@ -3,7 +3,7 @@ import CityCard from '../city-card/city-card';
 
 type OfferListProps = {
   offers: Offer[];
-  isStandartCardType: boolean
+  isStandartCardType: boolean;
 };
 
 function OfferList({offers, isStandartCardType}: OfferListProps): JSX.Element {

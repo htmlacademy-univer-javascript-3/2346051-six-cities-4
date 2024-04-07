@@ -72,8 +72,8 @@ function OfferScreen({offer}: OfferScreenProps): JSX.Element {
           <div className="offer__container container">
             <div className="offer__wrapper">
               {offer.isPremium ? (
-              <div className="offer__mark">
-                <span>Premium</span>
+                <div className="offer__mark">
+                  <span>Premium</span>
                 </div>
               ) : null}
               <div className="offer__name-wrapper">
@@ -163,7 +163,7 @@ function OfferScreen({offer}: OfferScreenProps): JSX.Element {
                   </p>
                 </div>
               </div>
-                <ReviewsList reviews={offer.reviews} ></ReviewsList>
+              <ReviewsList reviews={offer.reviews} ></ReviewsList>
             </div>
           </div>
           <section className="offer__map map">
