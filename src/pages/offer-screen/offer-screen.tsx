@@ -6,6 +6,7 @@ import { AMSTERDAM } from '../../mocks/cities';
 import { POINTS } from '../../mocks/points';
 import Map from '../../components/map/map';
 import OfferList from '../../components/offer-list/offer-list';
+import { typeOfCardList } from '../../const';
 
 type OfferScreenProps = {
   offer: Offer;
@@ -173,7 +174,7 @@ function OfferScreen({offer}: OfferScreenProps): JSX.Element {
         <div className="container">
           <section className="near-places places">
             <h2 className="near-places__title">Other places in the neighbourhood</h2>
-            <OfferList offers={[OFFERS[0], OFFERS[1], OFFERS[3]]} isStandartCardType={false}/>
+            <OfferList offers={[OFFERS[0], OFFERS[1], OFFERS[3]]} listType={typeOfCardList.nearest}/>
           </section>
         </div>
       </main>

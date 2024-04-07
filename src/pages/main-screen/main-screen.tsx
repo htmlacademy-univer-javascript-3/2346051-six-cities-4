@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import Map from '../../components/map/map';
 import { POINTS } from '../../mocks/points';
 import { AMSTERDAM } from '../../mocks/cities';
+import { typeOfCardList } from '../../const';
 
 type MainScreenProps = {
     placesCount: number;
@@ -102,7 +103,7 @@ function MainScreen({placesCount, offers}: MainScreenProps): JSX.Element {
                   <li className="places__option" tabIndex={0}>Top rated first</li>
                 </ul>
               </form>
-              <OfferList offers={offers} isStandartCardType/>
+              <OfferList offers={offers} listType={typeOfCardList.standart}/>
             </section>
             <div className="cities__right-section">
               <section className="cities__map map">

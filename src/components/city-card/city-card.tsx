@@ -3,12 +3,12 @@ import { Link } from 'react-router-dom';
 
 type OfferProps = {
   offer: Offer;
-  isStandartCardType: boolean;
+  cardType: string;
 }
 
-function CityCard({offer, isStandartCardType}: OfferProps): JSX.Element {
+function CityCard({offer, cardType}: OfferProps): JSX.Element {
   return (
-    <article className={(isStandartCardType) ? 'cities__card place-card' : 'near-places__card place-card'}>
+    <article className={cardType}>
       {offer.isPremium ? (
         <div className="place-card__mark">
           <span>Premium</span>
