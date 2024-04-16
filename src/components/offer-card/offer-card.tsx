@@ -6,7 +6,7 @@ type OfferProps = {
   cardType: string;
 }
 
-function CityCard({offer, cardType}: OfferProps): JSX.Element {
+function OfferCard({offer, cardType}: OfferProps): JSX.Element {
   return (
     <article className={cardType}>
       {offer.isPremium ? (
@@ -46,4 +46,4 @@ function CityCard({offer, cardType}: OfferProps): JSX.Element {
     </article>
   );
 }
-export default CityCard;
+export default OfferCard;

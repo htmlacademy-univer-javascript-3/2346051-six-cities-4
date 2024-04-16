@@ -1,4 +1,6 @@
+import { Point } from './point';
 import { Review } from '../types/review';
+import { City } from './city';
 
 export type Offer = {
   id: string;
@@ -10,4 +12,6 @@ export type Offer = {
   isFavorite: boolean;
   rating: number;
   reviews: Review[];
+  city: City;
+  point: Point;
 };
