@@ -1,6 +1,6 @@
 import { listToCard, typeOfCardList } from '../../const';
 import { Offer } from '../../types/offer';
-import CityCard from '../city-card/city-card';
+import OfferCard from '../offer-card/offer-card';
 
 type OfferListProps = {
   offers: Offer[];
@@ -12,7 +12,7 @@ function OfferList({offers, listType}: OfferListProps): JSX.Element {
   return (
     <div className={(listType)}>
       {offers.map((offer) => (
-        <CityCard key={offer.id} offer={offer} cardType={(type !== undefined) ? type : 'cities__card place-card'}/>
+        <OfferCard key={offer.id} offer={offer} cardType={(type !== undefined) ? type : 'cities__card place-card'}/>
       ))}
     </div>
   );

@@ -9,17 +9,13 @@ import { AppRoute, AuthorizationStatus } from '../../const.ts';
 import { Offer } from '../../types/offer';
 import { OFFERS } from '../../mocks/offers.ts';
 
-type AppScreenProps = {
-  placesCount: number;
-}
-
-function App({placesCount}: AppScreenProps): JSX.Element {
+function App(): JSX.Element {
   const favourites: Offer[] = OFFERS.filter((o) => o.isFavorite);
   return (
     <BrowserRouter>
       <Routes>
         <Route path="*" element={<NotFoundScreen/>} />
-        <Route path={AppRoute.Main} element={<MainScreen placesCount={placesCount} offers={OFFERS}/>} />
+        <Route path={AppRoute.Main} element={<MainScreen/>} />
         <Route
           path={AppRoute.Favorites}
           element={
@@ -29,7 +25,7 @@ function App({placesCount}: AppScreenProps): JSX.Element {
           }
         />
         <Route path={AppRoute.Login} element={<LoginScreen/>} />
-        <Route path={AppRoute.Offer} element={<OfferScreen offer={OFFERS[2]}/>} />
+        <Route path={AppRoute.Offer} element={<OfferScreen offer={OFFERS[0]}/>} />
       </Routes>
     </BrowserRouter>
   );
