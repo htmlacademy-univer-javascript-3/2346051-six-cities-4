@@ -16,7 +16,10 @@ function CityList({chosenCity}: CityListProps): JSX.Element {
     <ul className="locations__list tabs__list">
       {CITIES.map((city) => (
         <li className="locations__item" key={city.title}>
-          <a className={`locations__item-link tabs__item ${(city === chosenCity) ? 'tabs__item--active' : ''}`} onClick={() => {handleCityChange(city)}}>
+          <a className={`locations__item-link tabs__item ${(city === chosenCity) ? 'tabs__item--active' : ''}`} onClick={() => {
+            handleCityChange(city);
+          }}
+          >
             <span>{city.title}</span>
           </a>
         </li>

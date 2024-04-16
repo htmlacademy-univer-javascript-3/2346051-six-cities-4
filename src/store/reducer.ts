@@ -7,16 +7,16 @@ import { changeCity, getOffers } from './action';
 
 type StateType = {
     city: City;
-    offers: Offer[]
+    offers: Offer[];
   }
 
 const initialState: StateType = {
-    city: CITIES[0],
-    offers: OFFERS
-  };
+  city: CITIES[0],
+  offers: OFFERS
+};
 
 const reducer = createReducer(initialState, (builder) => {
-    builder
+  builder
     .addCase(getOffers, (state) => {
       state.offers = OFFERS;
     })
