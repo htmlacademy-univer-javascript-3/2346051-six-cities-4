@@ -1,7 +1,7 @@
-import React from "react";
-import { useAppDispatch, useAppSelector } from "../../hooks";
-import { filters } from "../../const";
-import { changeSortOptions } from "../../store/action";
+import React from 'react';
+import { useAppDispatch, useAppSelector } from '../../hooks';
+import { filters } from '../../const';
+import { changeSortOptions } from '../../store/action';
 
 function CardsSortingOptions(): JSX.Element {
   const chosenSortType = useAppSelector((state) => state.sortType);
