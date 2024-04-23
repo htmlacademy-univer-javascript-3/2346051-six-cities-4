@@ -3,16 +3,23 @@ import { CITIES } from '../mocks/cities';
 import { OFFERS } from '../mocks/offers';
 import { City } from '../types/city';
 import { Offer } from '../types/offer';
-import { changeCity, getOffers } from './action';
+import { changeCity, changeHighlightedMarker, changeSortOptions, getOffers } from './action';
+import { filters } from '../utils';
+import { Point } from '../types/point';
+
 
 type StateType = {
     city: City;
     offers: Offer[];
+    sortType: string;
+    highlightedMarker?: Point;
   }
 
 const initialState: StateType = {
   city: CITIES[0],
-  offers: OFFERS
+  offers: OFFERS,
+  sortType: filters.POPULAR,
+  highlightedMarker: undefined
 };
 
 const reducer = createReducer(initialState, (builder) => {
@@ -22,6 +29,12 @@ const reducer = createReducer(initialState, (builder) => {
     })
     .addCase(changeCity, (state, action) => {
       state.city = action.payload;
+    })
+    .addCase(changeSortOptions, (state, action) => {
+      state.sortType = action.payload;
+    })
+    .addCase(changeHighlightedMarker, (state, action) => {
+      state.highlightedMarker = action.payload;
     });
 });
 

@@ -2,11 +2,10 @@ import { Link } from 'react-router-dom';
 import ReviewsList from '../../components/reviews-list/reviews-list';
 import { OFFERS } from '../../mocks/offers';
 import { Offer } from '../../types/offer';
-import { CITIES } from '../../mocks/cities';
 import { POINTS } from '../../mocks/points';
 import Map from '../../components/map/map';
 import OfferList from '../../components/offer-list/offer-list';
-import { typeOfCardList } from '../../const';
+import { typeOfCardList } from '../../utils';
 
 type OfferScreenProps = {
   offer: Offer;
@@ -168,7 +167,7 @@ function OfferScreen({offer}: OfferScreenProps): JSX.Element {
             </div>
           </div>
           <section className="offer__map map">
-            <Map points={[POINTS[0], POINTS[1], POINTS[2]]} city={CITIES[1]} selectedPoint={undefined}/>
+            <Map points={[POINTS[0], POINTS[1], POINTS[2]]}/>
           </section>
         </section>
         <div className="container">

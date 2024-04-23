@@ -1,3 +1,5 @@
+import { useAppDispatch } from '../../hooks';
+import { changeHighlightedMarker } from '../../store/action';
 import { Offer } from '../../types/offer';
 import { Link } from 'react-router-dom';
 
@@ -7,8 +9,12 @@ type OfferProps = {
 }
 
 function OfferCard({offer, cardType}: OfferProps): JSX.Element {
+  const dispatch = useAppDispatch();
   return (
-    <article className={cardType}>
+    <article className={cardType}
+      onMouseEnter={() => dispatch(changeHighlightedMarker(offer.point))}
+      onMouseLeave={() => dispatch(changeHighlightedMarker(undefined))}
+    >
       {offer.isPremium ? (
         <div className="place-card__mark">
           <span>Premium</span>

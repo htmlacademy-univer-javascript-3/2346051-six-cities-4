@@ -1,7 +1,3 @@
-export const Settings = {
-  placesCount: 55,
-} as const;
-
 export enum AppRoute {
   Main = '/',
   Login = '/login',
@@ -15,16 +11,8 @@ export enum AuthorizationStatus {
   Unknown = 'UNKNOWN',
 }
 
-export enum typeOfCardList {
-  favourites = 'favorites__places',
-  nearest = 'near-places__list places__list',
-  standart = 'cities__places-list places__list tabs__content',
-}
+export const URL_MARKER_CURRENT =
+  '/img/pin-active.svg';
 
-export const listToCard = new Map(
-  [
-    [typeOfCardList.favourites, 'favorites__card place-card'],
-    [typeOfCardList.nearest, 'near-places__card place-card'],
-    [typeOfCardList.standart, 'cities__card place-card']
-  ]
-);
+export const URL_MARKER_STANDART =
+  '/img/pin.svg';
