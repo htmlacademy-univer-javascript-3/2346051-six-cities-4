@@ -27,7 +27,7 @@ export const OFFERS: Offer[] = [
     isFavorite: true,
     rating: 4,
     reviews: [REVIEWS[1]],
-    city: CITIES[1],
+    city: CITIES[0],
     point: POINTS[1]
   },
   {

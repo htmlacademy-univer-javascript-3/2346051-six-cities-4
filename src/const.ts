@@ -1,6 +1,4 @@
-export const Settings = {
-  placesCount: 55,
-} as const;
+import { Offer } from "./types/offer";
 
 export enum AppRoute {
   Main = '/',
@@ -28,3 +26,33 @@ export const listToCard = new Map(
     [typeOfCardList.standart, 'cities__card place-card']
   ]
 );
+
+export const filters = {
+  POPULAR: 'Popular',
+  LOW_TO_HIGH: 'Price: low to high',
+  HIGH_TO_LOW: 'Price: high to low',
+  TOP_RATED: 'Top rated first'
+};
+
+const sortFunctions = {
+  [filters.LOW_TO_HIGH]: (offers: Offer[]) => offers.sort((offerA, offerB) => offerA.price - offerB.price),
+  [filters.HIGH_TO_LOW]: (offers: Offer[]) => offers.sort((offerA, offerB) => offerB.price - offerA.price),
+  [filters.TOP_RATED]: (offers: Offer[]) => offers.sort((offerA, offerB) => offerB.rating - offerA.rating)
+};
+
+export const getSortedOffers = (
+  offers: Offer[],
+  sortType: string
+) => {
+  if (sortFunctions[sortType]) {
+    return sortFunctions[sortType](offers);
+  } else if (sortType === filters.POPULAR) {
+    return offers;
+  }
+};
+
+export const URL_MARKER_CURRENT =
+  '/img/pin-active.svg';
+
+export const URL_MARKER_STANDART =
+  '/img/pin.svg';
