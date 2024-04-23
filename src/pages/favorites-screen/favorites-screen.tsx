@@ -1,6 +1,6 @@
 import { Offer } from '../../types/offer';
 import { Link } from 'react-router-dom';
-import { typeOfCardList } from '../../const';
+import { typeOfCardList } from '../../utils';
 import OfferList from '../../components/offer-list/offer-list';
 
 type FavoritesScreenProps = {

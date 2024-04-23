@@ -1,7 +1,7 @@
 import OfferList from '../../components/offer-list/offer-list';
 import { Link } from 'react-router-dom';
 import Map from '../../components/map/map';
-import { typeOfCardList } from '../../const';
+import { typeOfCardList } from '../../utils';
 import { useAppSelector } from '../../hooks';
 import CityList from '../../components/city-list/city-list';
 import CardsSortingOptions from '../../components/cards-sorting-options/cards-sorting-options';

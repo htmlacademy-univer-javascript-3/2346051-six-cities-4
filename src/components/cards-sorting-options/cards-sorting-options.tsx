@@ -1,6 +1,6 @@
 import React from 'react';
 import { useAppDispatch, useAppSelector } from '../../hooks';
-import { filters } from '../../const';
+import { filters } from '../../utils';
 import { changeSortOptions } from '../../store/action';
 
 function CardsSortingOptions(): JSX.Element {

@@ -4,7 +4,7 @@ import { OFFERS } from '../mocks/offers';
 import { City } from '../types/city';
 import { Offer } from '../types/offer';
 import { changeCity, changeHighlightedMarker, changeSortOptions, getOffers } from './action';
-import { filters } from '../const';
+import { filters } from '../utils';
 import { Point } from '../types/point';
 
 

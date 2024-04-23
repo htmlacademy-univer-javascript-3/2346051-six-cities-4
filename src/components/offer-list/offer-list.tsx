@@ -1,4 +1,4 @@
-import { getSortedOffers, listToCard, typeOfCardList } from '../../const';
+import { getSortedOffers, listToCard, typeOfCardList } from '../../utils';
 import { useAppSelector } from '../../hooks';
 import { Offer } from '../../types/offer';
 import OfferCard from '../offer-card/offer-card';
