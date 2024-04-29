@@ -6,11 +6,20 @@ import NotFoundScreen from '../../pages/not-found-screen/not-found-screen.tsx';
 import OfferScreen from '../../pages/offer-screen/offer-screen.tsx';
 import PrivateRoute from '../private-route/private-route.tsx';
 import { AppRoute, AuthorizationStatus } from '../../const.ts';
-import { Offer } from '../../types/offer';
-import { OFFERS } from '../../mocks/offers.ts';
+import { useAppSelector } from '../../hooks/index.ts';
+import LoadingScreen from '../../pages/loading-screen/loading-screen.tsx';
+
 
 function App(): JSX.Element {
-  const favourites: Offer[] = OFFERS.filter((o) => o.isFavorite);
+
+  const isQuestionsDataLoading = useAppSelector((state) => state.isQuestionsDataLoading);
+
+  if (isQuestionsDataLoading) {
+    return (
+      <LoadingScreen />
+    );
+  }
+
   return (
     <BrowserRouter>
       <Routes>
@@ -20,12 +29,12 @@ function App(): JSX.Element {
           path={AppRoute.Favorites}
           element={
             <PrivateRoute authorizationStatus={AuthorizationStatus.Auth} >
-              <FavoritesScreen offers={favourites}/>
+              <FavoritesScreen />
             </PrivateRoute>
           }
         />
         <Route path={AppRoute.Login} element={<LoginScreen/>} />
-        <Route path={AppRoute.Offer} element={<OfferScreen offer={OFFERS[0]}/>} />
+        <Route path={AppRoute.Offer} element={<OfferScreen/>} />
       </Routes>
     </BrowserRouter>
   );
