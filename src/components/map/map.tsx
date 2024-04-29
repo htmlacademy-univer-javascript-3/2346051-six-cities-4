@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { Icon, Marker, layerGroup } from 'leaflet';
 import useMap from '../../hooks/use-map';
-import { Point } from '../../types/point';
+import { Point } from '../../types/location';
 import 'leaflet/dist/leaflet.css';
 import { useAppSelector } from '../../hooks';
 import { URL_MARKER_CURRENT, URL_MARKER_STANDART } from '../../const';
@@ -35,8 +35,8 @@ function Map(props: MapProps): JSX.Element {
       const markerLayer = layerGroup().addTo(map);
       points.forEach((point) => {
         const marker = new Marker({
-          lat: point.lat,
-          lng: point.lng
+          lat: point.latitude,
+          lng: point.longitude
         });
         let icon;
         if (point === highlightedMarker) {
@@ -48,7 +48,7 @@ function Map(props: MapProps): JSX.Element {
           .setIcon(icon)
           .addTo(markerLayer);
       });
-      map.setView([city.lat, city.lng], 11);
+      map.setView([city.location.latitude, city.location.longitude], city.location.zoom);
       return () => {
         map.removeLayer(markerLayer);
       };

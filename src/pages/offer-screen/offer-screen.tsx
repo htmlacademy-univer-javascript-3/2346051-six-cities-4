@@ -1,17 +1,14 @@
 import { Link } from 'react-router-dom';
 import ReviewsList from '../../components/reviews-list/reviews-list';
-import { OFFERS } from '../../mocks/offers';
-import { Offer } from '../../types/offer';
-import { POINTS } from '../../mocks/points';
 import Map from '../../components/map/map';
 import OfferList from '../../components/offer-list/offer-list';
-import { typeOfCardList } from '../../utils';
+import { ratingPercentage, typeOfCardList } from '../../utils';
+import { useAppSelector } from '../../hooks';
+import { REVIEWS } from '../../mocks/reviews';
 
-type OfferScreenProps = {
-  offer: Offer;
-}
 
-function OfferScreen({offer}: OfferScreenProps): JSX.Element {
+function OfferScreen(): JSX.Element {
+  const [offer, offers] = useAppSelector((state) => [state.chosenOffer, state.offers]);
   return (
     <div className="page">
       <header className="header">
@@ -71,14 +68,14 @@ function OfferScreen({offer}: OfferScreenProps): JSX.Element {
           </div>
           <div className="offer__container container">
             <div className="offer__wrapper">
-              {offer.isPremium ? (
+              {offer?.isPremium ? (
                 <div className="offer__mark">
                   <span>Premium</span>
                 </div>
               ) : null}
               <div className="offer__name-wrapper">
                 <h1 className="offer__name">
-                  {offer.title}
+                  {offer?.title}
                 </h1>
                 <button className="offer__bookmark-button button" type="button">
                   <svg className="offer__bookmark-icon" width="31" height="33">
@@ -89,14 +86,14 @@ function OfferScreen({offer}: OfferScreenProps): JSX.Element {
               </div>
               <div className="offer__rating rating">
                 <div className="offer__stars rating__stars">
-                  <span style={{width: `${(offer.rating / 5) * 100}%`}}></span>
+                  <span style={{ width: offer && offer.rating ? ratingPercentage(offer.rating) : undefined }}></span>
                   <span className="visually-hidden">Rating</span>
                 </div>
-                <span className="offer__rating-value rating__value">{offer.rating}</span>
+                <span className="offer__rating-value rating__value">{offer?.rating}</span>
               </div>
               <ul className="offer__features">
                 <li className="offer__feature offer__feature--entire">
-                  {offer.type}
+                  {offer?.type}
                 </li>
                 <li className="offer__feature offer__feature--bedrooms">
                   3 Bedrooms
@@ -106,7 +103,7 @@ function OfferScreen({offer}: OfferScreenProps): JSX.Element {
                 </li>
               </ul>
               <div className="offer__price">
-                <b className="offer__price-value">&euro;{offer.price}</b>
+                <b className="offer__price-value">&euro;{offer?.price}</b>
                 <span className="offer__price-text">&nbsp;night</span>
               </div>
               <div className="offer__inside">
@@ -163,17 +160,17 @@ function OfferScreen({offer}: OfferScreenProps): JSX.Element {
                   </p>
                 </div>
               </div>
-              <ReviewsList reviews={offer.reviews} ></ReviewsList>
+              <ReviewsList reviews={REVIEWS} ></ReviewsList>
             </div>
           </div>
           <section className="offer__map map">
-            <Map points={[POINTS[0], POINTS[1], POINTS[2]]}/>
+            <Map points={offers.map((nearOffer) => nearOffer.location)}/>
           </section>
         </section>
         <div className="container">
           <section className="near-places places">
             <h2 className="near-places__title">Other places in the neighbourhood</h2>
-            <OfferList offers={[OFFERS[0], OFFERS[1], OFFERS[3]]} listType={typeOfCardList.nearest}/>
+            <OfferList offers={offers} listType={typeOfCardList.nearest}/>
           </section>
         </div>
       </main>

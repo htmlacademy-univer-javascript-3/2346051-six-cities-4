@@ -1,17 +1,14 @@
-import { Point } from './point';
-import { Review } from '../types/review';
-import { City } from './city';
+import { Point, City } from './location';
 
 export type Offer = {
   id: string;
-  image: string[];
-  isPremium: boolean;
-  price: number;
   title: string;
   type: string;
-  isFavorite: boolean;
-  rating: number;
-  reviews: Review[];
+  price: number;
   city: City;
-  point: Point;
+  location: Point;
+  isFavorite: boolean;
+  isPremium: boolean;
+  rating: number;
+  previewImage: string;
 };
