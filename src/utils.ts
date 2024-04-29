@@ -38,4 +38,4 @@ export const getSortedOffers = (
   }
 };
 
-export const ratingPercentage = (rating: number) => `${(rating / 5) * 100}%`
+export const ratingPercentage = (rating: number) => `${(rating / 5) * 100}%`;

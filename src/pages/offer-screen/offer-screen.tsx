@@ -164,7 +164,7 @@ function OfferScreen(): JSX.Element {
             </div>
           </div>
           <section className="offer__map map">
-            <Map points={offers.map((offer) => offer.location)}/>
+            <Map points={offers.map((nearOffer) => nearOffer.location)}/>
           </section>
         </section>
         <div className="container">

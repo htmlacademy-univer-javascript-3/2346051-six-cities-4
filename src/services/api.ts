@@ -1,7 +1,7 @@
-import axios, { AxiosError, AxiosInstance, AxiosResponse } from "axios";
-import { getToken } from "./token";
-import { StatusCodes } from "http-status-codes";
-import { processErrorHandle } from "./process-error-handle";
+import axios, { AxiosError, AxiosInstance, AxiosResponse } from 'axios';
+import { getToken } from './token';
+import { StatusCodes } from 'http-status-codes';
+import { processErrorHandle } from './process-error-handle';
 
 type DetailMessageType = {
   type: string;
@@ -26,7 +26,7 @@ export const createAPI = (): AxiosInstance => {
   });
 
   api.interceptors.request.use(
-    (config)  => {
+    (config) => {
       const token = getToken();
 
       if (token && config.headers) {

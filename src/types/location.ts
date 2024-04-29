@@ -6,5 +6,5 @@ export type Point = {
 
 export type City = {
   name: string;
-  location: Point
+  location: Point;
 }

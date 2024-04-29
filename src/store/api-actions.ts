@@ -1,9 +1,9 @@
-import { createAsyncThunk } from "@reduxjs/toolkit";
-import { AppDispatch, State } from "../types/state";
-import { AxiosInstance } from "axios";
-import { loadOffers, setError, setQuestionsDataLoadingStatus } from "./action";
-import { Offer } from "../types/offer";
-import { APIRoute, TIMEOUT_SHOW_ERROR } from "../const";
+import { createAsyncThunk } from '@reduxjs/toolkit';
+import { AppDispatch, State } from '../types/state';
+import { AxiosInstance } from 'axios';
+import { loadOffers, setError, setQuestionsDataLoadingStatus } from './action';
+import { Offer } from '../types/offer';
+import { APIRoute, TIMEOUT_SHOW_ERROR } from '../const';
 
 import {store} from './';
 
