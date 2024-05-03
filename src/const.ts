@@ -21,6 +21,8 @@ export const URL_MARKER_STANDART =
 
 export enum APIRoute {
   Offers = '/offers',
+  Login = '/login',
+  Logout = '/logout'
 }
 
 export const CITIES: City[] = [
@@ -29,7 +31,7 @@ export const CITIES: City[] = [
     location: {
       latitude: 48.864716,
       longitude: 2.349014,
-      zoom: 11,
+      zoom: 13,
     },
   },
   {
@@ -37,7 +39,7 @@ export const CITIES: City[] = [
     location: {
       latitude: 50.85034,
       longitude: 4.35171,
-      zoom: 11,
+      zoom: 13,
     },
   },
   {
@@ -45,7 +47,7 @@ export const CITIES: City[] = [
     location: {
       latitude: 50.935173,
       longitude: 6.953101,
-      zoom: 11,
+      zoom: 13,
     },
   },
   {
@@ -53,7 +55,7 @@ export const CITIES: City[] = [
     location: {
       latitude: 52.3740300,
       longitude: 4.8896900,
-      zoom: 11,
+      zoom: 13,
     },
   },
   {
@@ -61,7 +63,7 @@ export const CITIES: City[] = [
     location: {
       latitude: 53.551086,
       longitude: 9.993682,
-      zoom: 11,
+      zoom: 13,
     },
   },
   {
@@ -69,7 +71,7 @@ export const CITIES: City[] = [
     location: {
       latitude: 51.233334,
       longitude: 6.783333,
-      zoom: 11,
+      zoom: 13,
     },
   },
 ];

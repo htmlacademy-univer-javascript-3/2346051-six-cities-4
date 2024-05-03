@@ -1,10 +1,11 @@
 import { createReducer } from '@reduxjs/toolkit';
 import { City } from '../types/location';
 import { Offer } from '../types/offer';
-import { changeChosenOffer, changeCity, changeHighlightedMarker, changeSortOptions, loadOffers, setError, setQuestionsDataLoadingStatus } from './action';
+import { changeChosenOffer, changeCity, changeHighlightedMarker, changeSortOptions, loadOffers, loadUserData, requireAuthorization, setError, setOffersDataLoadingStatus } from './action';
 import { filters } from '../utils';
 import { Point } from '../types/location';
-import { CITIES } from '../const';
+import { AuthorizationStatus, CITIES } from '../const';
+import { UserData } from '../types/user-data';
 
 
 type StateType = {
@@ -12,9 +13,11 @@ type StateType = {
     offers: Offer[];
     sortType: string;
     highlightedMarker?: Point;
-    chosenOffer: Offer | undefined;
-    isQuestionsDataLoading: boolean;
+    chosenOffer?: Offer;
+    isOffersDataLoading: boolean;
     error: string | null;
+    authorizationStatus: AuthorizationStatus;
+    userData?: UserData;
   }
 
 const initialState: StateType = {
@@ -23,8 +26,10 @@ const initialState: StateType = {
   sortType: filters.POPULAR,
   highlightedMarker: undefined,
   chosenOffer: undefined,
-  isQuestionsDataLoading: false,
-  error: null
+  isOffersDataLoading: false,
+  error: null,
+  authorizationStatus: AuthorizationStatus.Unknown,
+  userData: undefined
 };
 
 const reducer = createReducer(initialState, (builder) => {
@@ -44,11 +49,17 @@ const reducer = createReducer(initialState, (builder) => {
     .addCase(changeChosenOffer, (state, action) => {
       state.chosenOffer = action.payload;
     })
-    .addCase(setQuestionsDataLoadingStatus, (state, action) => {
-      state.isQuestionsDataLoading = action.payload;
+    .addCase(setOffersDataLoadingStatus, (state, action) => {
+      state.isOffersDataLoading = action.payload;
     })
     .addCase(setError, (state, action) => {
       state.error = action.payload;
+    })
+    .addCase(requireAuthorization, (state, action) => {
+      state.authorizationStatus = action.payload;
+    })
+    .addCase(loadUserData, (state, action) => {
+      state.userData = action.payload;
     });
 });
 
