@@ -9,36 +9,35 @@ function HeaderNavigation(): JSX.Element {
   const favoriteOffers = offers.filter((offer) => offer.isFavorite);
   const userData = useAppSelector((state) => state.userData);
   const authorizationStatus = useAppSelector((state) => state.authorizationStatus);
+  const handleSignOut = () => {
+    dispatch(logoutAction());
+  };
   return (
     <nav className="header__nav">
       {authorizationStatus === AuthorizationStatus.Auth ? (
         <ul className="header__nav-list">
           <li className="header__nav-item user">
-            <a className="header__nav-link header__nav-link--profile" >
+            <Link to={AppRoute.Favorites} className="header__nav-link header__nav-link--profile" >
               <div className="header__avatar-wrapper user__avatar-wrapper">
               </div>
-              <Link to={AppRoute.Favorites}>
               <span className="header__user-name user__name">{userData?.email}</span>
-                <span className="header__favorite-count">{favoriteOffers.length}</span>
-              </Link>
-            </a>
+              <span className="header__favorite-count">{favoriteOffers.length}</span>
+            </Link>
           </li>
           <li className="header__nav-item">
-            <a className="header__nav-link" onClick={() => dispatch(logoutAction())}>
+            <Link to={AppRoute.Login} className="header__nav-link" onClick={handleSignOut}>
               <span className="header__signout">Sign out</span>
-            </a>
+            </Link>
           </li>
         </ul>
       ) : (
         <ul className="header__nav-list">
           <li className="header__nav-item user">
-            <a className="header__nav-link header__nav-link--profile" >
+            <Link to={AppRoute.Login} className="header__nav-link header__nav-link--profile" >
               <div className="header__avatar-wrapper user__avatar-wrapper">
               </div>
-              <Link to={AppRoute.Login}>
-                <span className="header__login">Sign in</span>
-              </Link>
-            </a>
+              <span className="header__login">Sign in</span>
+            </Link>
           </li>
         </ul>
       )}

@@ -27,15 +27,13 @@ function LoginScreen(): JSX.Element {
         <div className="container">
           <div className="header__wrapper">
             <div className="header__left">
-              <a className="header__logo-link" href="main.html">
-                <Link to={AppRoute.Main}>
-                  <img className="header__logo" src="img/logo.svg" alt="6 cities logo" width="81" height="41" />
-                </Link>
-              </a>
+              <Link to={AppRoute.Main} className="header__logo-link">
+                <img className="header__logo" src="img/logo.svg" alt="6 cities logo" width="81" height="41" />
+              </Link>
             </div>
           </div>
         </div>
-      </header>
+      </header >
 
       <main className="page__main page__main--login">
         <div className="page__login-container container">
@@ -62,7 +60,7 @@ function LoginScreen(): JSX.Element {
           </section>
         </div>
       </main>
-    </div>
+    </div >
   );
 }
 export default LoginScreen;
