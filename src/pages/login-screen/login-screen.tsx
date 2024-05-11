@@ -1,8 +1,9 @@
 import { FormEvent, useRef } from 'react';
-import { AppRoute } from '../../const';
+import { AppRoute, cities } from '../../const';
 import { loginAction } from '../../store/api-actions';
 import { useAppDispatch } from '../../hooks';
 import { Link } from 'react-router-dom';
+import { redirectToRoute } from '../../store/action';
 
 function LoginScreen(): JSX.Element {
   const emailRef = useRef<HTMLInputElement | null>(null);
@@ -21,6 +22,7 @@ function LoginScreen(): JSX.Element {
       );
     }
   };
+
   return (
     <div className="page page--gray page--login">
       <header className="header">
@@ -53,8 +55,11 @@ function LoginScreen(): JSX.Element {
           </section>
           <section className="locations locations--login locations--current">
             <div className="locations__item">
-              <a className="locations__item-link" href="#">
-                <span>Amsterdam</span>
+              <a className="locations__item-link" onClick={() => {
+                dispatch(redirectToRoute(AppRoute.Main));
+              }}
+              >
+                <span>{cities.Paris}</span>
               </a>
             </div>
           </section>

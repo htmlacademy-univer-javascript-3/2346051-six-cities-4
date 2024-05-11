@@ -1,24 +1,25 @@
-import { City } from '../../types/location';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { changeCity } from '../../store/action';
-import { CITIES } from '../../const';
+import { cities } from '../../const';
 
 
 function CityList(): JSX.Element {
   const chosenCity = useAppSelector((state) => state.city);
   const dispatch = useAppDispatch();
-  const handleCityChange = (city: City) => {
+  const handleCityChange = (city: string) => {
     dispatch(changeCity(city));
   };
+
+
   return(
     <ul className="locations__list tabs__list">
-      {CITIES.map((city) => (
-        <li className="locations__item" key={city.name}>
+      {Object.keys(cities).map((city) => (
+        <li className="locations__item" key={city}>
           <a className={`locations__item-link tabs__item ${(city === chosenCity) ? 'tabs__item--active' : ''}`} onClick={() => {
             handleCityChange(city);
           }}
           >
-            <span>{city.name}</span>
+            <span>{city}</span>
           </a>
         </li>
       ))}

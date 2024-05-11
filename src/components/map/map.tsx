@@ -1,13 +1,14 @@
-import React, { useEffect } from 'react';
+import { useEffect, useRef } from 'react';
 import { Icon, Marker, layerGroup } from 'leaflet';
 import useMap from '../../hooks/use-map';
-import { Point } from '../../types/location';
+import { City, Point } from '../../types/location';
 import 'leaflet/dist/leaflet.css';
 import { useAppSelector } from '../../hooks';
 import { URL_MARKER_CURRENT, URL_MARKER_STANDART } from '../../const';
 
 type MapProps = {
   points: Point[];
+  city: City;
 }
 
 const currentIcon = new Icon({
@@ -23,16 +24,28 @@ const standartIcon = new Icon({
 });
 
 function Map(props: MapProps): JSX.Element {
-  const city = useAppSelector((state) => state.city);
   const highlightedMarker = useAppSelector((state) => state.highlightedMarker);
 
-  const {points} = props;
-  const mapRef = React.useRef(null);
+  const { points, city } = props;
+  const mapRef = useRef(null);
   const map = useMap(mapRef, city);
 
+  const currentPoint = useAppSelector((state) => state.chosenOffer?.location);
+
   useEffect(() => {
-    if(map) {
+    if (map) {
       const markerLayer = layerGroup().addTo(map);
+
+      if (currentPoint) {
+        const marker = new Marker({
+          lat: currentPoint.latitude,
+          lng: currentPoint.longitude,
+        });
+        marker
+          .setIcon(currentIcon)
+          .addTo(markerLayer);
+      }
+
       points.forEach((point) => {
         const marker = new Marker({
           lat: point.latitude,
@@ -48,14 +61,16 @@ function Map(props: MapProps): JSX.Element {
           .setIcon(icon)
           .addTo(markerLayer);
       });
+
       map.setView([city.location.latitude, city.location.longitude], city.location.zoom);
+
       return () => {
         map.removeLayer(markerLayer);
       };
     }
-  }, [map, points, highlightedMarker, city]);
+  }, [map, points, highlightedMarker, city, currentPoint]);
 
-  return <div style={{height: '100%'}} ref={mapRef}></div>;
+  return <div style={{ height: '100%' }} ref={mapRef}></div>;
 }
 
 export default Map;

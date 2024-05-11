@@ -10,6 +10,7 @@ import { useAppSelector } from '../../hooks/index.ts';
 import LoadingScreen from '../../pages/loading-screen/loading-screen.tsx';
 import HistoryRouter from '../history-route/history-route.tsx';
 import browserHistory from '../../browser-history.ts';
+import MainRouteRedirection from '../main-route-redirection/main-route-redirection.tsx';
 
 
 function App(): JSX.Element {
@@ -35,7 +36,14 @@ function App(): JSX.Element {
             </PrivateRoute>
           }
         />
-        <Route path={AppRoute.Login} element={<LoginScreen />} />
+        <Route
+          path={AppRoute.Login}
+          element={
+            <MainRouteRedirection >
+              <LoginScreen />
+            </MainRouteRedirection>
+          }
+        />
         <Route path={AppRoute.Offer} element={<OfferScreen />} />
       </Routes>
     </HistoryRouter>
