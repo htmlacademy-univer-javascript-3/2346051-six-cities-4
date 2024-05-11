@@ -1,5 +1,5 @@
 import { FormEvent, useRef } from 'react';
-import { AppRoute, Cities } from '../../const';
+import { AppRoute, cities } from '../../const';
 import { loginAction } from '../../store/api-actions';
 import { useAppDispatch } from '../../hooks';
 import { Link } from 'react-router-dom';
@@ -57,8 +57,9 @@ function LoginScreen(): JSX.Element {
             <div className="locations__item">
               <a className="locations__item-link" onClick={() => {
                 dispatch(redirectToRoute(AppRoute.Main));
-              }}>
-                <span>{Cities.Paris}</span>
+              }}
+              >
+                <span>{cities.Paris}</span>
               </a>
             </div>
           </section>

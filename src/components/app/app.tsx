@@ -37,7 +37,7 @@ function App(): JSX.Element {
           }
         />
         <Route
-         path={AppRoute.Login}
+          path={AppRoute.Login}
           element={
             <MainRouteRedirection >
               <LoginScreen />

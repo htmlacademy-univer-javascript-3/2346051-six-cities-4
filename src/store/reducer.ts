@@ -3,13 +3,13 @@ import { ExtendedOffer, Offer } from '../types/offer';
 import { changeChosenOffer, changeCity, changeHighlightedMarker, changeNearbyOffers, changeSortOptions, loadOffers, loadReviews, loadUserData, requireAuthorization, setChosenOfferDataLoadingStatus, setError, setOffersDataLoadingStatus } from './action';
 import { filters } from '../utils';
 import { Point } from '../types/location';
-import { AuthorizationStatus, Cities } from '../const';
+import { AuthorizationStatus, cities } from '../const';
 import { UserData } from '../types/user-data';
 import { Review } from '../types/review';
 
 
 type StateType = {
-    city: Cities;
+    city: string;
     offers: Offer[];
     sortType: string;
     highlightedMarker?: Point;
@@ -24,7 +24,7 @@ type StateType = {
   }
 
 const initialState: StateType = {
-  city: Cities.Paris,
+  city: cities.Paris,
   offers: [],
   sortType: filters.POPULAR,
   highlightedMarker: undefined,
@@ -75,7 +75,7 @@ const reducer = createReducer(initialState, (builder) => {
     })
     .addCase(setChosenOfferDataLoadingStatus, (state, action) => {
       state.isChosenOfferDataLoading = action.payload;
-    })
+    });
 });
 
 export {reducer};

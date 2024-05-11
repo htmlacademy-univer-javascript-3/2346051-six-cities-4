@@ -49,10 +49,13 @@ function OfferCard({ offer, cardType }: OfferProps): JSX.Element {
         <h2 className="place-card__name">
           <Link to={`/offer/${offer.id}`}
             onClick={() => {
-              dispatch(fetchOfferAction(offer.id)),
-              dispatch(fetchReviewsAction(offer.id)),
-              dispatch(fetchNearbyAction(offer.id))
-            }}>{offer.title}</Link>
+              dispatch(fetchOfferAction(offer.id));
+              dispatch(fetchReviewsAction(offer.id));
+              dispatch(fetchNearbyAction(offer.id));
+            }}
+          >
+            {offer.title}
+          </Link>
         </h2>
         <p className="place-card__type">{offer.type}</p>
       </div>

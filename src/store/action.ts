@@ -1,11 +1,11 @@
 import { createAction } from '@reduxjs/toolkit';
 import { Point } from '../types/location';
 import { ExtendedOffer, Offer } from '../types/offer';
-import { AppRoute, AuthorizationStatus, Cities } from '../const';
+import { AppRoute, AuthorizationStatus } from '../const';
 import { UserData } from '../types/user-data';
 import { Review } from '../types/review';
 
-export const changeCity = createAction('CITY_CHANGE', (value: Cities) => ({
+export const changeCity = createAction('CITY_CHANGE', (value: string) => ({
   payload: value
 }));
 

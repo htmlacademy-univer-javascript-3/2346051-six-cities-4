@@ -25,13 +25,13 @@ export enum APIRoute {
   Nearby = '/nearby'
 }
 
-export enum Cities {
-  Paris = 'Paris',
-  Cologne = 'Cologne',
-  Brussels = 'Brussels',
-  Amsterdam = 'Amsterdam',
-  Hamburg = 'Hamburg',
-  Dusseldorf = 'Dusseldorf',
-}
+export const cities = {
+  Paris: 'Paris',
+  Cologne: 'Cologne',
+  Brussels: 'Brussels',
+  Amsterdam: 'Amsterdam',
+  Hamburg: 'Hamburg',
+  Dusseldorf: 'Dusseldorf',
+};
 
 export const TIMEOUT_SHOW_ERROR = 2000;

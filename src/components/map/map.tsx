@@ -8,7 +8,7 @@ import { URL_MARKER_CURRENT, URL_MARKER_STANDART } from '../../const';
 
 type MapProps = {
   points: Point[];
-  city: City
+  city: City;
 }
 
 const currentIcon = new Icon({
@@ -30,7 +30,7 @@ function Map(props: MapProps): JSX.Element {
   const mapRef = useRef(null);
   const map = useMap(mapRef, city);
 
-  const currentPoint = useAppSelector((state) => state.chosenOffer?.location)
+  const currentPoint = useAppSelector((state) => state.chosenOffer?.location);
 
   useEffect(() => {
     if (map) {
@@ -68,7 +68,7 @@ function Map(props: MapProps): JSX.Element {
         map.removeLayer(markerLayer);
       };
     }
-  }, [map, points, highlightedMarker, city]);
+  }, [map, points, highlightedMarker, city, currentPoint]);
 
   return <div style={{ height: '100%' }} ref={mapRef}></div>;
 }

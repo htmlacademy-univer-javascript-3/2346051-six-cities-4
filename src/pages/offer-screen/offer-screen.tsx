@@ -22,13 +22,13 @@ function OfferScreen(): JSX.Element {
     0,
     MAXIMUM_NEARBY_PREVIEW
   );
-  
+
   const id = String(useParams().id);
-    useEffect(() => {
+  useEffect(() => {
     dispatch(fetchOfferAction(id));
     dispatch(fetchReviewsAction(id));
     dispatch(fetchNearbyAction(id));
-  }, [] );
+  }, [dispatch, id]);
 
   const isSelectedOfferDataLoading = useAppSelector((state) => state.isChosenOfferDataLoading);
   if (isSelectedOfferDataLoading) {
