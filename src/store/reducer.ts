@@ -1,27 +1,30 @@
 import { createReducer } from '@reduxjs/toolkit';
-import { City } from '../types/location';
-import { Offer } from '../types/offer';
-import { changeChosenOffer, changeCity, changeHighlightedMarker, changeSortOptions, loadOffers, loadUserData, requireAuthorization, setError, setOffersDataLoadingStatus } from './action';
+import { ExtendedOffer, Offer } from '../types/offer';
+import { changeChosenOffer, changeCity, changeHighlightedMarker, changeNearbyOffers, changeSortOptions, loadOffers, loadReviews, loadUserData, requireAuthorization, setChosenOfferDataLoadingStatus, setError, setOffersDataLoadingStatus } from './action';
 import { filters } from '../utils';
 import { Point } from '../types/location';
-import { AuthorizationStatus, CITIES } from '../const';
+import { AuthorizationStatus, Cities } from '../const';
 import { UserData } from '../types/user-data';
+import { Review } from '../types/review';
 
 
 type StateType = {
-    city: City;
+    city: Cities;
     offers: Offer[];
     sortType: string;
     highlightedMarker?: Point;
-    chosenOffer?: Offer;
+    chosenOffer?: ExtendedOffer;
     isOffersDataLoading: boolean;
     error: string | null;
     authorizationStatus: AuthorizationStatus;
     userData?: UserData;
+    rewiews: Review[];
+    nerbyOffers: Offer[];
+    isChosenOfferDataLoading: boolean;
   }
 
 const initialState: StateType = {
-  city: CITIES[0],
+  city: Cities.Paris,
   offers: [],
   sortType: filters.POPULAR,
   highlightedMarker: undefined,
@@ -29,7 +32,10 @@ const initialState: StateType = {
   isOffersDataLoading: false,
   error: null,
   authorizationStatus: AuthorizationStatus.Unknown,
-  userData: undefined
+  userData: undefined,
+  rewiews: [],
+  nerbyOffers: [],
+  isChosenOfferDataLoading: false
 };
 
 const reducer = createReducer(initialState, (builder) => {
@@ -60,7 +66,16 @@ const reducer = createReducer(initialState, (builder) => {
     })
     .addCase(loadUserData, (state, action) => {
       state.userData = action.payload;
-    });
+    })
+    .addCase(loadReviews, (state, action) => {
+      state.rewiews = action.payload;
+    })
+    .addCase(changeNearbyOffers, (state, action) => {
+      state.nerbyOffers = action.payload;
+    })
+    .addCase(setChosenOfferDataLoadingStatus, (state, action) => {
+      state.isChosenOfferDataLoading = action.payload;
+    })
 });
 
 export {reducer};

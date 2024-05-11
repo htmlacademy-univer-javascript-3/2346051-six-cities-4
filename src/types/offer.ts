@@ -12,3 +12,18 @@ export type Offer = {
   rating: number;
   previewImage: string;
 };
+
+type Host = {
+  name: string;
+  avatarUrl: string;
+  isPro: boolean;
+};
+
+export type ExtendedOffer = Pick<Offer, 'id' | 'title' | 'type' | 'price' | 'city' | 'location' | 'isFavorite' | 'isPremium' | 'rating'> & {
+  description: string;
+  bedrooms: number;
+  goods: string[];
+  host: Host;
+  maxAdults: number;
+  images: string[];
+};
