@@ -14,8 +14,8 @@ const MAXIMUM_NEARBY_PREVIEW = 3;
 function OfferScreen(): JSX.Element {
   const dispatch = useAppDispatch();
   const offer = useAppSelector((state) => state.chosenOffer);
-  const reviews = useAppSelector((state) => state.rewiews);
-  const nearbyOffers = useAppSelector((state) => state.nerbyOffers);
+  const reviews = useAppSelector((state) => state.reviews);
+  const nearbyOffers = useAppSelector((state) => state.nearbyOffers);
   const city = useAppSelector((state) => state.offers[0].city);
 
   const displayedNearby = (nearbyOffers).slice(

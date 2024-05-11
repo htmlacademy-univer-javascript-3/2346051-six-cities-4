@@ -18,8 +18,8 @@ type StateType = {
     error: string | null;
     authorizationStatus: AuthorizationStatus;
     userData?: UserData;
-    rewiews: Review[];
-    nerbyOffers: Offer[];
+    reviews: Review[];
+    nearbyOffers: Offer[];
     isChosenOfferDataLoading: boolean;
   }
 
@@ -33,8 +33,8 @@ const initialState: StateType = {
   error: null,
   authorizationStatus: AuthorizationStatus.Unknown,
   userData: undefined,
-  rewiews: [],
-  nerbyOffers: [],
+  reviews: [],
+  nearbyOffers: [],
   isChosenOfferDataLoading: false
 };
 
@@ -68,10 +68,10 @@ const reducer = createReducer(initialState, (builder) => {
       state.userData = action.payload;
     })
     .addCase(loadReviews, (state, action) => {
-      state.rewiews = action.payload;
+      state.reviews = action.payload;
     })
     .addCase(changeNearbyOffers, (state, action) => {
-      state.nerbyOffers = action.payload;
+      state.nearbyOffers = action.payload;
     })
     .addCase(setChosenOfferDataLoadingStatus, (state, action) => {
       state.isChosenOfferDataLoading = action.payload;
