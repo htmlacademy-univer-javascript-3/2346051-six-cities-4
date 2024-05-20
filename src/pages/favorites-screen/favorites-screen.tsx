@@ -2,8 +2,8 @@ import { Link } from 'react-router-dom';
 import { typeOfCardList } from '../../utils';
 import OfferList from '../../components/offer-list/offer-list';
 import { useAppSelector } from '../../hooks';
-import Header from '../../components/header/header';
 import { AppRoute } from '../../const';
+import { Header } from '../../components/header/header';
 
 
 function FavoritesScreen(): JSX.Element {
@@ -19,7 +19,7 @@ function FavoritesScreen(): JSX.Element {
               <li className="favorites__locations-items">
                 <div className="favorites__locations locations locations--current">
                   <div className="locations__item">
-                    <a className="locations__item-link" href="#">
+                    <a className="locations__item-link">
                       <span>Amsterdam</span>
                     </a>
                   </div>

@@ -3,8 +3,8 @@ import Map from '../../components/map/map';
 import { typeOfCardList } from '../../utils';
 import { useAppSelector } from '../../hooks';
 import CityList from '../../components/city-list/city-list';
-import CardsSortingOptions from '../../components/cards-sorting-options/cards-sorting-options';
-import Header from '../../components/header/header';
+import { Header } from '../../components/header/header';
+import { CardsSortingOptions } from '../../components/cards-sorting-options/cards-sorting-options';
 
 function MainScreen(): JSX.Element {
   const city = useAppSelector((state) => state.city);

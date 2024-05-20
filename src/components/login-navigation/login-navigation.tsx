@@ -3,7 +3,7 @@ import { logoutAction } from '../../store/api-actions';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { AppRoute, AuthorizationStatus } from '../../const';
 
-function HeaderNavigation(): JSX.Element {
+function LoginNavigation(): JSX.Element {
   const dispatch = useAppDispatch();
   const offers = useAppSelector((state) => state.offers);
   const favoriteOffers = offers.filter((offer) => offer.isFavorite);
@@ -45,4 +45,4 @@ function HeaderNavigation(): JSX.Element {
   );
 }
 
-export default HeaderNavigation;
+export default LoginNavigation;

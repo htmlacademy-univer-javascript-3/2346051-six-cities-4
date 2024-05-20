@@ -3,11 +3,11 @@ import Map from '../../components/map/map';
 import OfferList from '../../components/offer-list/offer-list';
 import { ratingPercentage, typeOfCardList } from '../../utils';
 import { useAppDispatch, useAppSelector } from '../../hooks';
-import Header from '../../components/header/header';
 import { fetchNearbyAction, fetchOfferAction, fetchReviewsAction } from '../../store/api-actions';
 import LoadingScreen from '../loading-screen/loading-screen';
 import { useParams } from 'react-router-dom';
 import { useEffect } from 'react';
+import { Header } from '../../components/header/header';
 
 const MAXIMUM_NEARBY_PREVIEW = 3;
 
@@ -30,8 +30,8 @@ function OfferScreen(): JSX.Element {
     dispatch(fetchNearbyAction(id));
   }, [dispatch, id]);
 
-  const isSelectedOfferDataLoading = useAppSelector((state) => state.isChosenOfferDataLoading);
-  if (isSelectedOfferDataLoading) {
+  const isChosenOfferDataLoading = useAppSelector((state) => state.isChosenOfferDataLoading);
+  if (isChosenOfferDataLoading) {
     return (
       <LoadingScreen />
     );

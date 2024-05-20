@@ -3,7 +3,13 @@ import { AppRoute, cities } from '../../const';
 import { loginAction } from '../../store/api-actions';
 import { useAppDispatch } from '../../hooks';
 import { Link } from 'react-router-dom';
-import { redirectToRoute } from '../../store/action';
+import { changeCity, redirectToRoute } from '../../store/action';
+
+function getRandomCity() {
+  const cityKeys = Object.keys(cities) as (keyof typeof cities)[];
+  const randomIndex = Math.floor(Math.random() * cityKeys.length);
+  return cities[cityKeys[randomIndex]];
+}
 
 function LoginScreen(): JSX.Element {
   const emailRef = useRef<HTMLInputElement | null>(null);
@@ -22,6 +28,8 @@ function LoginScreen(): JSX.Element {
       );
     }
   };
+
+  const city = getRandomCity();
 
   return (
     <div className="page page--gray page--login">
@@ -57,9 +65,10 @@ function LoginScreen(): JSX.Element {
             <div className="locations__item">
               <a className="locations__item-link" onClick={() => {
                 dispatch(redirectToRoute(AppRoute.Main));
+                dispatch(changeCity(city));
               }}
               >
-                <span>{cities.Paris}</span>
+                <span>{city}</span>
               </a>
             </div>
           </section>

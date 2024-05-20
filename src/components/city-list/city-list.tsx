@@ -10,7 +10,6 @@ function CityList(): JSX.Element {
     dispatch(changeCity(city));
   };
 
-
   return(
     <ul className="locations__list tabs__list">
       {Object.keys(cities).map((city) => (

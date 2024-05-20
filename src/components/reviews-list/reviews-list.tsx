@@ -8,13 +8,17 @@ type ReviewsListProps = {
   reviews: Review[];
 };
 
+const MAXIMUM_REVIEWS_COUNT = 10;
+
 function ReviewsList({ reviews }: ReviewsListProps): JSX.Element {
   const authorizationStatus = useAppSelector((state) => state.authorizationStatus);
+  const sortedReviews = reviews.slice().sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
+  const limitedReviews = sortedReviews.slice(0, MAXIMUM_REVIEWS_COUNT);
   return (
     <section className="offer__reviews reviews">
-      <h2 className="reviews__title">Reviews &middot; <span className="reviews__amount">{reviews.length}</span></h2>
+      <h2 className="reviews__title">Reviews &middot; <span className="reviews__amount">{limitedReviews.length}</span></h2>
       <ul className="reviews__list">
-        {reviews.map((review) => (
+        {limitedReviews.map((review) => (
           <ReviewItem key={review.id} review={review} />
         ))}
       </ul>
