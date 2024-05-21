@@ -3,7 +3,8 @@ import { AppRoute, cities } from '../../const';
 import { loginAction } from '../../store/api-actions';
 import { useAppDispatch } from '../../hooks';
 import { Link } from 'react-router-dom';
-import { changeCity, redirectToRoute } from '../../store/action';
+import { redirectToRoute } from '../../store/action';
+import { changeCity } from '../../store/common-data/common-data';
 
 function getRandomCity() {
   const cityKeys = Object.keys(cities) as (keyof typeof cities)[];

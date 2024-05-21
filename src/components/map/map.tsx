@@ -5,6 +5,8 @@ import { City, Point } from '../../types/location';
 import 'leaflet/dist/leaflet.css';
 import { useAppSelector } from '../../hooks';
 import { URL_MARKER_CURRENT, URL_MARKER_STANDART } from '../../const';
+import { getChosenOffer } from '../../store/offer-data/selectors';
+import { getHighlightedMarker } from '../../store/common-data/selectors';
 
 type MapProps = {
   points: Point[];
@@ -24,13 +26,13 @@ const standartIcon = new Icon({
 });
 
 function Map(props: MapProps): JSX.Element {
-  const highlightedMarker = useAppSelector((state) => state.highlightedMarker);
+  const highlightedMarker = useAppSelector(getHighlightedMarker);
 
   const { points, city } = props;
   const mapRef = useRef(null);
   const map = useMap(mapRef, city);
 
-  const currentPoint = useAppSelector((state) => state.chosenOffer?.location);
+  const currentPoint = useAppSelector(getChosenOffer)?.location;
 
   useEffect(() => {
     if (map) {

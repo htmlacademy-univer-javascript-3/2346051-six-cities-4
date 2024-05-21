@@ -1,6 +1,7 @@
 import { Fragment, useState } from 'react';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { postReviewAction } from '../../store/api-actions';
+import { getChosenOffer } from '../../store/offer-data/selectors';
 
 function CommentForm(): JSX.Element {
   const [formData, setFormData] = useState({
@@ -15,7 +16,7 @@ function CommentForm(): JSX.Element {
     });
   };
 
-  const id = useAppSelector((state) => state.chosenOffer?.id);
+  const id = useAppSelector(getChosenOffer)?.id;
 
   const MINIMUM_COMMENT_CHARACTERS = 50;
   const MAXIMUM_COMMENT_CHARACTERS = 300;

@@ -1,15 +1,16 @@
 import { memo, useState } from 'react';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { filters } from '../../utils';
-import { changeSortOptions } from '../../store/action';
+import { changeSortType } from '../../store/common-data/common-data';
+import { getSortType } from '../../store/common-data/selectors';
 
 function CardsSortingOptionsComponent(): JSX.Element {
-  const chosenSortType = useAppSelector((state) => state.sortType);
+  const chosenSortType = useAppSelector(getSortType);
   const dispatch = useAppDispatch();
   const [isSortOpened, setIsSortOpened] = useState(false);
 
   const handleSortOptionClick = (sortType: string) => {
-    dispatch(changeSortOptions(sortType));
+    dispatch(changeSortType(sortType));
     setIsSortOpened(false); 
   };
 

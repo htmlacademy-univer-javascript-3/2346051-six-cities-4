@@ -1,9 +1,9 @@
 import { useAppDispatch } from '../../hooks';
-import { changeHighlightedMarker } from '../../store/action';
 import { Offer } from '../../types/offer';
 import { Link } from 'react-router-dom';
 import { ratingPercentage } from '../../utils';
 import { fetchNearbyAction, fetchOfferAction, fetchReviewsAction } from '../../store/api-actions';
+import { changeHighlightedMarker } from '../../store/common-data/common-data';
 
 type OfferProps = {
   offer: Offer;

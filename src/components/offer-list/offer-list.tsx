@@ -2,6 +2,7 @@ import { getSortedOffers, listToCard, typeOfCardList } from '../../utils';
 import { useAppSelector } from '../../hooks';
 import { Offer } from '../../types/offer';
 import OfferCard from '../offer-card/offer-card';
+import { getSortType } from '../../store/common-data/selectors';
 
 type OfferListProps = {
   offers: Offer[];
@@ -9,7 +10,7 @@ type OfferListProps = {
 };
 
 function OfferList({offers, listType}: OfferListProps): JSX.Element {
-  const chosenSortType = useAppSelector((state) => state.sortType);
+  const chosenSortType = useAppSelector(getSortType);
   const type = listToCard.get(listType);
   return (
     <div className={(listType)}>

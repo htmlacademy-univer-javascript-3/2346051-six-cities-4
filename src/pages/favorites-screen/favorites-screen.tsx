@@ -4,10 +4,11 @@ import OfferList from '../../components/offer-list/offer-list';
 import { useAppSelector } from '../../hooks';
 import { AppRoute } from '../../const';
 import { Header } from '../../components/header/header';
+import { getOffers } from '../../store/offers-data/selectors';
 
 
 function FavoritesScreen(): JSX.Element {
-  const favoriteOffers = useAppSelector((state) => state.offers).filter((offer) => offer.isFavorite);
+  const favoriteOffers = useAppSelector(getOffers).filter((offer) => offer.isFavorite);
   return (
     <div className="page">
       <Header />

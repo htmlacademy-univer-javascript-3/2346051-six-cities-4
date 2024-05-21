@@ -2,13 +2,15 @@ import { Link } from 'react-router-dom';
 import { logoutAction } from '../../store/api-actions';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { AppRoute, AuthorizationStatus } from '../../const';
+import { getOffers } from '../../store/offers-data/selectors';
+import { getAuthorizationStatus, getUserData } from '../../store/user-process/selectors';
 
 function LoginNavigation(): JSX.Element {
   const dispatch = useAppDispatch();
-  const offers = useAppSelector((state) => state.offers);
+  const offers = useAppSelector(getOffers);
   const favoriteOffers = offers.filter((offer) => offer.isFavorite);
-  const userData = useAppSelector((state) => state.userData);
-  const authorizationStatus = useAppSelector((state) => state.authorizationStatus);
+  const userData = useAppSelector(getUserData);
+  const authorizationStatus = useAppSelector(getAuthorizationStatus);
   const handleSignOut = () => {
     dispatch(logoutAction());
   };
