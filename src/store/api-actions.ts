@@ -13,7 +13,7 @@ import { setError } from './common-data/common-data';
 
 export const clearErrorAction = createAsyncThunk(
   'CLEAR_ERROR_ACTION',
-  async (_, { dispatch }) => {
+  (_, { dispatch }) => {
     setTimeout(() => {
       dispatch(setError(null));
     }, TIMEOUT_SHOW_ERROR);
@@ -28,7 +28,7 @@ export const fetchOffersAction = createAsyncThunk<Offer[], undefined, {
   'FETCH_OFFERS_ACTION',
   async (_arg, { extra: api }) => {
     const { data } = await api.get<Offer[]>(APIRoute.Offers);
-    return data
+    return data;
   },
 );
 
@@ -40,7 +40,7 @@ export const checkAuthAction = createAsyncThunk<UserData, undefined, {
   'CHECK_AUTH_ACTION',
   async (_arg, { extra: api }) => {
     const { data } = await api.get<UserData>(APIRoute.Login);
-    return data
+    return data;
   }
 );
 
@@ -78,7 +78,7 @@ export const fetchOfferAction = createAsyncThunk<ExtendedOffer, string, {
   'FETCH_OFFER_ACTION',
   async (id, { extra: api }) => {
     const { data } = await api.get<ExtendedOffer>(`${APIRoute.Offers}/${id}`);
-    return data
+    return data;
   },
 );
 
@@ -90,7 +90,7 @@ export const fetchReviewsAction = createAsyncThunk<Review[], string, {
   'FETCH_REVIEWS_ACTION',
   async (id, { extra: api }) => {
     const { data } = await api.get<Review[]>(`${APIRoute.Comments}/${id}`);
-    return data
+    return data;
   },
 );
 
@@ -102,7 +102,7 @@ export const fetchNearbyAction = createAsyncThunk<Offer[], string, {
   'FETCH_NEARBY_ACTION',
   async (id, { extra: api }) => {
     const { data } = await api.get<Offer[]>(`${APIRoute.Offers}/${id}${APIRoute.Nearby}`);
-    return data
+    return data;
   },
 );
 
@@ -120,7 +120,7 @@ export const postReviewAction = createAsyncThunk<Review[], {
     async ({ id, comment, rating }, { extra: api }) => {
       await api.post(`${APIRoute.Comments}/${id}`, { comment, rating });
       const { data } = await api.get<Review[]>(`${APIRoute.Comments}/${id}`);
-      return data
+      return data;
     },
   );
 

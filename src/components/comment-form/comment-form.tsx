@@ -46,6 +46,16 @@ function CommentForm(): JSX.Element {
     resetForm();
   };
 
+  const ratingTitles: { [key: number]: string } = {
+    5: 'excellent',
+    4: 'good',
+    3: 'not bad',
+    2: 'badly',
+    1: 'terribly'
+  };
+
+  const getRatingTitle = (rating: number): string => ratingTitles[rating];
+
   return (
     <form className="reviews__form form" method="post">
       <label className="reviews__label form__label" htmlFor="review">Your review</label>
@@ -53,13 +63,7 @@ function CommentForm(): JSX.Element {
         {[5, 4, 3, 2, 1].map((rating) => (
           <Fragment key={rating}>
             <input className="form__rating-input visually-hidden" name="rating" value={rating} id={`${rating}-stars`} type="radio" checked={Number(formData.rating) === rating} onChange={handleFieldChange} />
-            <label htmlFor={`${rating}-stars`} className="reviews__rating-label form__rating-label" title={
-              rating === 5 ? "excellent" :
-                rating === 4 ? "good" :
-                  rating === 3 ? "not bad" :
-                    rating === 2 ? "badly" : "terribly"
-            }
-            >
+            <label htmlFor={`${rating}-stars`} className="reviews__rating-label form__rating-label" title={getRatingTitle(rating)}>
               <svg className="form__star-image" width="37" height="33">
                 <use xlinkHref="#icon-star"></use>
               </svg>

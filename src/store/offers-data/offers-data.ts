@@ -26,6 +26,6 @@ export const offersData = createSlice({
       })
       .addCase(logoutAction.pending, (state) => {
         state.isOffersDataLoading = true;
-      })
+      });
   },
 });

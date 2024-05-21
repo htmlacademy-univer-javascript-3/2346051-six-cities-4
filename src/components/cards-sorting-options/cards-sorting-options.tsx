@@ -11,7 +11,7 @@ function CardsSortingOptionsComponent(): JSX.Element {
 
   const handleSortOptionClick = (sortType: string) => {
     dispatch(changeSortType(sortType));
-    setIsSortOpened(false); 
+    setIsSortOpened(false);
   };
 
   return (

@@ -40,5 +40,5 @@ export enum NameSpace {
   Offer = 'OFFER',
   Offers = 'OFFERS',
   User = 'USER',
-  Common = "COMMON"
+  Common = 'COMMON'
 }
