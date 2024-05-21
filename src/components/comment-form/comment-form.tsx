@@ -38,11 +38,6 @@ function CommentForm(): JSX.Element {
 
   const submitHandle = () => {
     dispatch(postReviewAction({ id: id ? id : '', comment: formData.review, rating: Number(formData.rating) }));
-    setFormData((prevState) => ({
-      ...prevState,
-      rating: null,
-      review: ''
-    }));
     resetForm();
   };
 

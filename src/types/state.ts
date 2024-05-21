@@ -15,6 +15,7 @@ export type OfferData = {
 export type OffersData = {
     offers: Offer[];
     isOffersDataLoading: boolean;
+    hasError: boolean;
   };
 
 export type UserProcess = {

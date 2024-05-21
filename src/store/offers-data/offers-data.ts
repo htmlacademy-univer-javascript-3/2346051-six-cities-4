@@ -6,6 +6,7 @@ import { fetchOffersAction, logoutAction } from '../api-actions';
 const initialState: OffersData = {
   offers: [],
   isOffersDataLoading: false,
+  hasError: false,
 };
 
 export const offersData = createSlice({
@@ -20,12 +21,17 @@ export const offersData = createSlice({
       })
       .addCase(fetchOffersAction.pending, (state) => {
         state.isOffersDataLoading = true;
+        state.hasError = false;
       })
       .addCase(logoutAction.fulfilled, (state) => {
         state.isOffersDataLoading = false;
       })
       .addCase(logoutAction.pending, (state) => {
         state.isOffersDataLoading = true;
+      })
+      .addCase(fetchOffersAction.rejected, (state) => {
+        state.isOffersDataLoading = false;
+        state.hasError = true;
       });
-  },
+  }
 });

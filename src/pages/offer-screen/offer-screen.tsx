@@ -10,6 +10,7 @@ import { useEffect } from 'react';
 import { Header } from '../../components/header/header';
 import { getChosenOffer, getIsChosenOfferDataLoading, getNearbyOffers, getReviews } from '../../store/offer-data/selectors';
 import { getOffers } from '../../store/offers-data/selectors';
+import { changeHighlightedMarker } from '../../store/common-data/common-data';
 
 const MAXIMUM_NEARBY_PREVIEW = 3;
 
@@ -30,6 +31,7 @@ function OfferScreen(): JSX.Element {
     dispatch(fetchOfferAction(id));
     dispatch(fetchReviewsAction(id));
     dispatch(fetchNearbyAction(id));
+    dispatch(changeHighlightedMarker(undefined));
   }, [dispatch, id]);
 
   const isChosenOfferDataLoading = useAppSelector(getIsChosenOfferDataLoading);

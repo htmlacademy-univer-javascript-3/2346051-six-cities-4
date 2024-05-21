@@ -1,7 +1,7 @@
 import { useAppDispatch } from '../../hooks';
 import { Offer } from '../../types/offer';
 import { Link } from 'react-router-dom';
-import { ratingPercentage } from '../../utils';
+import { listToCard, ratingPercentage, typeOfCardList } from '../../utils';
 import { fetchNearbyAction, fetchOfferAction, fetchReviewsAction } from '../../store/api-actions';
 import { changeHighlightedMarker } from '../../store/common-data/common-data';
 
@@ -12,10 +12,14 @@ type OfferProps = {
 
 function OfferCard({ offer, cardType }: OfferProps): JSX.Element {
   const dispatch = useAppDispatch();
+
   return (
-    <article className={cardType}
-      onMouseEnter={() => dispatch(changeHighlightedMarker(offer.location))}
-      onMouseLeave={() => dispatch(changeHighlightedMarker(undefined))}
+    <article
+      className={cardType}
+      {...(cardType === listToCard.get(typeOfCardList.standart) && {
+        onMouseEnter: () => dispatch(changeHighlightedMarker(offer.location)),
+        onMouseLeave: () => dispatch(changeHighlightedMarker(undefined))
+      })}
     >
       {offer.isPremium ? (
         <div className="place-card__mark">
