@@ -1,8 +1,9 @@
 import { Link } from 'react-router-dom';
 import LoginNavigation from '../login-navigation/login-navigation';
 import { AppRoute } from '../../const';
+import { memo } from 'react';
 
-function Header(): JSX.Element {
+function HeaderComponent(): JSX.Element {
   return (
     <header className="header">
       <div className="container">
@@ -19,5 +20,5 @@ function Header(): JSX.Element {
   );
 }
 
-export default Header;
+export const Header = memo(HeaderComponent);
 

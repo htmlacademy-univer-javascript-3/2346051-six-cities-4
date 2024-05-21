@@ -39,3 +39,14 @@ export const getSortedOffers = (
 };
 
 export const ratingPercentage = (rating: number) => `${(rating / 5) * 100}%`;
+
+export const extractYearMonth = (initDate: string): string => {
+  const date = new Date(initDate);
+  const year = date.getUTCFullYear().toString();
+  const monthNumber = (date.getUTCMonth() + 1).toString().padStart(2, '0');
+  const months = [
+    'January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'
+  ];
+  const monthName = months[Number(monthNumber) - 1];
+  return [monthName, year].join(' ');
+};

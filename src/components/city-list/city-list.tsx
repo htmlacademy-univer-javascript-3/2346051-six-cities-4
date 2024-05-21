@@ -1,15 +1,15 @@
 import { useAppDispatch, useAppSelector } from '../../hooks';
-import { changeCity } from '../../store/action';
 import { cities } from '../../const';
+import { changeCity } from '../../store/common-data/common-data';
+import { getCity } from '../../store/common-data/selectors';
 
 
 function CityList(): JSX.Element {
-  const chosenCity = useAppSelector((state) => state.city);
+  const chosenCity = useAppSelector(getCity);
   const dispatch = useAppDispatch();
   const handleCityChange = (city: string) => {
     dispatch(changeCity(city));
   };
-
 
   return(
     <ul className="locations__list tabs__list">

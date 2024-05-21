@@ -35,3 +35,10 @@ export const cities = {
 };
 
 export const TIMEOUT_SHOW_ERROR = 2000;
+
+export enum NameSpace {
+  Offer = 'OFFER',
+  Offers = 'OFFERS',
+  User = 'USER',
+  Common = 'COMMON'
+}

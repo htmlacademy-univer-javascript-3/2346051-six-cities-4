@@ -3,20 +3,22 @@ import Map from '../../components/map/map';
 import OfferList from '../../components/offer-list/offer-list';
 import { ratingPercentage, typeOfCardList } from '../../utils';
 import { useAppDispatch, useAppSelector } from '../../hooks';
-import Header from '../../components/header/header';
 import { fetchNearbyAction, fetchOfferAction, fetchReviewsAction } from '../../store/api-actions';
 import LoadingScreen from '../loading-screen/loading-screen';
 import { useParams } from 'react-router-dom';
 import { useEffect } from 'react';
+import { Header } from '../../components/header/header';
+import { getChosenOffer, getIsChosenOfferDataLoading, getNearbyOffers, getReviews } from '../../store/offer-data/selectors';
+import { getOffers } from '../../store/offers-data/selectors';
 
 const MAXIMUM_NEARBY_PREVIEW = 3;
 
 function OfferScreen(): JSX.Element {
   const dispatch = useAppDispatch();
-  const offer = useAppSelector((state) => state.chosenOffer);
-  const reviews = useAppSelector((state) => state.reviews);
-  const nearbyOffers = useAppSelector((state) => state.nearbyOffers);
-  const city = useAppSelector((state) => state.offers[0].city);
+  const offer = useAppSelector(getChosenOffer);
+  const reviews = useAppSelector(getReviews);
+  const nearbyOffers = useAppSelector(getNearbyOffers);
+  const city = useAppSelector(getOffers)[0].city;
 
   const displayedNearby = (nearbyOffers).slice(
     0,
@@ -30,8 +32,8 @@ function OfferScreen(): JSX.Element {
     dispatch(fetchNearbyAction(id));
   }, [dispatch, id]);
 
-  const isSelectedOfferDataLoading = useAppSelector((state) => state.isChosenOfferDataLoading);
-  if (isSelectedOfferDataLoading) {
+  const isChosenOfferDataLoading = useAppSelector(getIsChosenOfferDataLoading);
+  if (isChosenOfferDataLoading) {
     return (
       <LoadingScreen />
     );

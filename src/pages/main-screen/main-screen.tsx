@@ -3,12 +3,14 @@ import Map from '../../components/map/map';
 import { typeOfCardList } from '../../utils';
 import { useAppSelector } from '../../hooks';
 import CityList from '../../components/city-list/city-list';
-import CardsSortingOptions from '../../components/cards-sorting-options/cards-sorting-options';
-import Header from '../../components/header/header';
+import { Header } from '../../components/header/header';
+import { CardsSortingOptions } from '../../components/cards-sorting-options/cards-sorting-options';
+import { getOffers } from '../../store/offers-data/selectors';
+import { getCity } from '../../store/common-data/selectors';
 
 function MainScreen(): JSX.Element {
-  const city = useAppSelector((state) => state.city);
-  const offers = useAppSelector((state) => state.offers);
+  const city = useAppSelector(getCity);
+  const offers = useAppSelector(getOffers);
   const chosenOffers = offers.filter((offer) => offer.city.name === city);
   const points = chosenOffers.map((offer) => offer.location);
   const chosenCity = chosenOffers[0].city;
