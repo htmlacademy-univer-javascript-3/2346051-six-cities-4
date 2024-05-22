@@ -3,7 +3,7 @@ import { logoutAction } from '../../store/api-actions';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { AppRoute, AuthorizationStatus } from '../../const';
 import { getAuthorizationStatus, getUserData } from '../../store/user-process/selectors';
-import { getFavoritesNumber } from '../../store/favorite-process/selectors';
+import { getFavoriteOffersId } from '../../store/favorite-process/selectors';
 
 function LoginNavigation(): JSX.Element {
   const dispatch = useAppDispatch();
@@ -12,7 +12,7 @@ function LoginNavigation(): JSX.Element {
   const handleSignOut = () => {
     dispatch(logoutAction());
   };
-  const favoriteNumber = useAppSelector(getFavoritesNumber);
+  const favoriteNumber = useAppSelector(getFavoriteOffersId);
 
   return (
     <nav className="header__nav">
@@ -23,7 +23,7 @@ function LoginNavigation(): JSX.Element {
               <div className="header__avatar-wrapper user__avatar-wrapper">
               </div>
               <span className="header__user-name user__name">{userData?.email}</span>
-              <span className="header__favorite-count">{favoriteNumber}</span>
+              <span className="header__favorite-count">{favoriteNumber.length}</span>
             </Link>
           </li>
           <li className="header__nav-item">

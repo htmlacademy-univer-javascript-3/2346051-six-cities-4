@@ -4,6 +4,9 @@ import { postFavoriteAction } from '../../store/api-actions';
 import { getFavoriteOffersId, getFavoritesNumber } from '../../store/favorite-process/selectors';
 import { changeFavoritesId, changeFavoritesNumber } from '../../store/favorite-process/favorite-process';
 import { Offer } from '../../types/offer';
+import { AppRoute, AuthorizationStatus } from '../../const';
+import { redirectToRoute } from '../../store/action';
+import { getAuthorizationStatus } from '../../store/user-process/selectors';
 
 type ChangeFavoriteButtonProps = {
   offer: Offer;
@@ -14,6 +17,7 @@ function ChangeFavoriteButton({ offer }: ChangeFavoriteButtonProps): JSX.Element
   const favoriteNumber = useAppSelector(getFavoritesNumber);
   const favoritesOffersId = useAppSelector(getFavoriteOffersId);
   const [isFavorite, setIsFavorite] = useState(favoritesOffersId.includes(offer.id));
+  const status = useAppSelector(getAuthorizationStatus);
 
   useEffect(() => {
     setIsFavorite(favoritesOffersId.includes(offer.id));
@@ -27,9 +31,13 @@ function ChangeFavoriteButton({ offer }: ChangeFavoriteButtonProps): JSX.Element
   }, [favoritesOffersId, favoriteNumber, dispatch]);
 
   const handleFavorite = () => {
-    dispatch(changeFavoritesId(isFavorite ? favoritesOffersId.filter((id) => id !== offer.id) : favoritesOffersId.concat(offer.id)));
-    setIsFavorite(!isFavorite);
-    dispatch(postFavoriteAction({ id: offer.id, status: isFavorite ? 0 : 1 }));
+    if (status === AuthorizationStatus.NoAuth) {
+      dispatch(redirectToRoute(AppRoute.Login));
+    } else {
+      dispatch(changeFavoritesId(isFavorite ? favoritesOffersId.filter((id) => id !== offer.id) : favoritesOffersId.concat(offer.id)));
+      setIsFavorite(!isFavorite);
+      dispatch(postFavoriteAction({ id: offer.id, status: isFavorite ? 0 : 1 }));
+    }
   };
 
   return (

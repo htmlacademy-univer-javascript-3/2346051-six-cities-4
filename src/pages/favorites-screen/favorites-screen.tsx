@@ -5,10 +5,12 @@ import { useAppSelector } from '../../hooks';
 import { AppRoute } from '../../const';
 import { Header } from '../../components/header/header';
 import { getOffers } from '../../store/offers-data/selectors';
+import { getFavoriteOffersId } from '../../store/favorite-process/selectors';
 
 
 function FavoritesScreen(): JSX.Element {
-  const favoriteOffers = useAppSelector(getOffers).filter((offer) => offer.isFavorite);
+  const favoritesOffersId = useAppSelector(getFavoriteOffersId)
+  const favoriteOffers = useAppSelector(getOffers).filter((offer) => favoritesOffersId.includes(offer.id));
   return (
     <div className="page">
       <Header />
