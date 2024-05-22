@@ -12,9 +12,7 @@ type OfferProps = {
 }
 
 function OfferCard({ offer, cardType }: OfferProps): JSX.Element {
-  
   const dispatch = useAppDispatch();
-
   return (
     <article
       className={cardType}

@@ -5,7 +5,7 @@ import FavoritesScreen from '../../pages/favorites-screen/favorites-screen.tsx';
 import NotFoundScreen from '../../pages/not-found-screen/not-found-screen.tsx';
 import OfferScreen from '../../pages/offer-screen/offer-screen.tsx';
 import PrivateRoute from '../private-route/private-route.tsx';
-import { AppRoute } from '../../const.ts';
+import { AppRoute, AuthorizationStatus } from '../../const.ts';
 import { useAppSelector } from '../../hooks/index.ts';
 import LoadingScreen from '../../pages/loading-screen/loading-screen.tsx';
 import HistoryRouter from '../history-route/history-route.tsx';
@@ -13,14 +13,23 @@ import browserHistory from '../../browser-history.ts';
 import MainRouteRedirection from '../main-route-redirection/main-route-redirection.tsx';
 import { getAuthorizationStatus } from '../../store/user-process/selectors.ts';
 import { getIsOffersDataLoading } from '../../store/offers-data/selectors.ts';
-
+import { useEffect } from 'react';
+import { store } from '../../store/index.ts';
+import { fetchFavoriteAction } from '../../store/api-actions.ts';
 
 
 function App(): JSX.Element {
   const isOffersDataLoading = useAppSelector(getIsOffersDataLoading);
   const authorizationStatus = useAppSelector(getAuthorizationStatus);
-  
-  if (isOffersDataLoading || !authorizationStatus) {
+  const isFavoriteOffersDataLoading = useAppSelector(getIsOffersDataLoading);
+
+  useEffect(() => {
+    if (authorizationStatus === AuthorizationStatus.Auth) {
+      store.dispatch(fetchFavoriteAction);
+    }
+  }, [authorizationStatus]);
+
+  if (isOffersDataLoading || authorizationStatus === AuthorizationStatus.Unknown || isFavoriteOffersDataLoading) {
     return (
       <LoadingScreen />
     );

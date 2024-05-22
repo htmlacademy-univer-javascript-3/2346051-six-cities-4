@@ -1,8 +1,7 @@
-import { PayloadAction, createSlice } from '@reduxjs/toolkit';
+import { createSlice } from '@reduxjs/toolkit';
 import { NameSpace } from '../../const';
 import { OffersData } from '../../types/state';
 import { fetchOffersAction, logoutAction } from '../api-actions';
-import { Offer } from '../../types/offer';
 
 const initialState: OffersData = {
   offers: [],
@@ -13,11 +12,7 @@ const initialState: OffersData = {
 export const offersData = createSlice({
   name: NameSpace.Offers,
   initialState,
-  reducers: {
-    updateOffers: (state, action: PayloadAction<Offer>) => {
-      state.offers = state.offers.map((offer) => (offer.id === action.payload.id ? action.payload : offer));
-    },
-  },
+  reducers: {},
   extraReducers: (builder) => {
     builder
       .addCase(fetchOffersAction.fulfilled, (state, action) => {
@@ -40,4 +35,3 @@ export const offersData = createSlice({
       });
   }
 });
-export const { updateOffers } = offersData.actions;

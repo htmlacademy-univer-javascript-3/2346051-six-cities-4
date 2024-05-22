@@ -1,10 +1,9 @@
-import { useEffect, useState } from "react";
-import { useAppDispatch, useAppSelector } from "../../hooks";
-import { postFavoriteAction } from "../../store/api-actions";
-import { getFavoritesNumber } from "../../store/favorite-process/selectors";
-import { changeFavoritesNumber } from "../../store/favorite-process/favorite-process";
-import { Offer } from "../../types/offer";
-import { getOffers } from "../../store/offers-data/selectors";
+import { useEffect, useState } from 'react';
+import { useAppDispatch, useAppSelector } from '../../hooks';
+import { postFavoriteAction } from '../../store/api-actions';
+import { getFavoriteOffersId, getFavoritesNumber } from '../../store/favorite-process/selectors';
+import { changeFavoritesId, changeFavoritesNumber } from '../../store/favorite-process/favorite-process';
+import { Offer } from '../../types/offer';
 
 type ChangeFavoriteButtonProps = {
   offer: Offer;
@@ -12,21 +11,24 @@ type ChangeFavoriteButtonProps = {
 
 function ChangeFavoriteButton({ offer }: ChangeFavoriteButtonProps): JSX.Element {
   const dispatch = useAppDispatch();
-  const offers = useAppSelector(getOffers);
   const favoriteNumber = useAppSelector(getFavoritesNumber);
-  const [isFavorite, setIsFavorite] = useState(offer.isFavorite);
+  const favoritesOffersId = useAppSelector(getFavoriteOffersId);
+  const [isFavorite, setIsFavorite] = useState(favoritesOffersId.includes(offer.id));
 
   useEffect(() => {
-    const currentFavoriteNumber = offers.filter((o) => o.isFavorite).length;
+    setIsFavorite(favoritesOffersId.includes(offer.id));
+  }, [favoritesOffersId, offer.id]);
+
+  useEffect(() => {
+    const currentFavoriteNumber = favoritesOffersId.length;
     if (currentFavoriteNumber !== favoriteNumber) {
       dispatch(changeFavoritesNumber(currentFavoriteNumber));
     }
-  }, [offers, favoriteNumber, dispatch]);
+  }, [favoritesOffersId, favoriteNumber, dispatch]);
 
   const handleFavorite = () => {
+    dispatch(changeFavoritesId(isFavorite ? favoritesOffersId.filter((id) => id !== offer.id) : favoritesOffersId.concat(offer.id)));
     setIsFavorite(!isFavorite);
-    const newFavoriteNumber = isFavorite ? favoriteNumber - 1 : favoriteNumber + 1;
-    dispatch(changeFavoritesNumber(newFavoriteNumber));
     dispatch(postFavoriteAction({ id: offer.id, status: isFavorite ? 0 : 1 }));
   };
 

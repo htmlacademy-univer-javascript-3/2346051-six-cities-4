@@ -13,7 +13,7 @@ function LoginNavigation(): JSX.Element {
     dispatch(logoutAction());
   };
   const favoriteNumber = useAppSelector(getFavoritesNumber);
-  
+
   return (
     <nav className="header__nav">
       {authorizationStatus === AuthorizationStatus.Auth ? (

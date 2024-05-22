@@ -34,6 +34,7 @@ export type FavoriteProcess = {
   favoriteOffers: Offer[];
   isFavoriteOffersDataLoading: boolean;
   favoritesNumber: number;
+  favoriteOffersId: string[];
 }
 
 export type State = ReturnType<typeof store.getState>;
