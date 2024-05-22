@@ -22,7 +22,8 @@ export enum APIRoute {
   Login = '/login',
   Logout = '/logout',
   Comments = '/comments',
-  Nearby = '/nearby'
+  Nearby = '/nearby',
+  Favorite = '/favorite'
 }
 
 export const cities = {
@@ -40,5 +41,6 @@ export enum NameSpace {
   Offer = 'OFFER',
   Offers = 'OFFERS',
   User = 'USER',
-  Common = 'COMMON'
+  Common = 'COMMON',
+  Favorite = 'FAVORITE'
 }

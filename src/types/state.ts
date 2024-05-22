@@ -30,6 +30,12 @@ export type CommonData = {
   error: string | null;
 }
 
+export type FavoriteProcess = {
+  favoriteOffers: Offer[];
+  isFavoriteOffersDataLoading: boolean;
+  favoritesNumber: number;
+}
+
 export type State = ReturnType<typeof store.getState>;
 
 export type AppDispatch = typeof store.dispatch;

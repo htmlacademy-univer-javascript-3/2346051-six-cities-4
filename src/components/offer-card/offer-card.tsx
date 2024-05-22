@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import { listToCard, ratingPercentage, typeOfCardList } from '../../utils';
 import { fetchNearbyAction, fetchOfferAction, fetchReviewsAction } from '../../store/api-actions';
 import { changeHighlightedMarker } from '../../store/common-data/common-data';
+import ChangeFavoriteButton from '../change-favorite-button/change-favorite-button';
 
 type OfferProps = {
   offer: Offer;
@@ -11,6 +12,7 @@ type OfferProps = {
 }
 
 function OfferCard({ offer, cardType }: OfferProps): JSX.Element {
+  
   const dispatch = useAppDispatch();
 
   return (
@@ -37,12 +39,7 @@ function OfferCard({ offer, cardType }: OfferProps): JSX.Element {
             <b className="place-card__price-value">&euro;{offer.price}</b>
             <span className="place-card__price-text">&#47;&nbsp;night</span>
           </div>
-          <button className={offer.isFavorite ? 'place-card__bookmark-button place-card__bookmark-button--active button' : 'place-card__bookmark-button button'} type="button">
-            <svg className="place-card__bookmark-icon" width="18" height="19">
-              <use xlinkHref="#icon-bookmark"></use>
-            </svg>
-            <span className="visually-hidden">To bookmarks</span>
-          </button>
+          <ChangeFavoriteButton offer={offer}/>
         </div>
         <div className="place-card__rating rating">
           <div className="place-card__stars rating__stars">
