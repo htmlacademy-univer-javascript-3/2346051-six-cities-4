@@ -4,6 +4,7 @@ import { useAppDispatch, useAppSelector } from '../../hooks';
 import { AppRoute, AuthorizationStatus } from '../../const';
 import { getAuthorizationStatus, getUserData } from '../../store/user-process/selectors';
 import { getFavoriteOffersId } from '../../store/favorite-process/selectors';
+import { changeFavoritesId } from '../../store/favorite-process/favorite-process';
 
 function LoginNavigation(): JSX.Element {
   const dispatch = useAppDispatch();
@@ -11,6 +12,7 @@ function LoginNavigation(): JSX.Element {
   const authorizationStatus = useAppSelector(getAuthorizationStatus);
   const handleSignOut = () => {
     dispatch(logoutAction());
+    dispatch(changeFavoritesId([]))
   };
   const favoriteNumber = useAppSelector(getFavoriteOffersId);
 
