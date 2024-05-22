@@ -10,7 +10,6 @@ import { dropToken, saveToken } from '../services/token';
 import { Review } from '../types/review';
 import { setError } from './common-data/common-data';
 import { FavoriteData } from '../types/favorite-data';
-import { updateOffer } from '../utils';
 import { updateOffers } from './offers-data/offers-data';
 
 
@@ -145,7 +144,8 @@ export const postReviewAction = createAsyncThunk<Review[], {
     extra: AxiosInstance;
   }>(
     'CHANGE_FAVORITE_ACTION',
-    async ({id, status}, {extra: api}) => {
-      await api.post<Offer>(`${APIRoute.Favorite}/${id}/${status}`);
+    async ({id, status}, {extra: api, dispatch}) => {
+      const { data } = await api.post<Offer>(`${APIRoute.Favorite}/${id}/${status}`);
+      dispatch(updateOffers(data));
     },
   );

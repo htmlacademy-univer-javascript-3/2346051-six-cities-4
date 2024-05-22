@@ -1,9 +1,10 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useAppDispatch, useAppSelector } from "../../hooks";
-import { fetchFavoriteAction, postFavoriteAction } from "../../store/api-actions";
+import { postFavoriteAction } from "../../store/api-actions";
 import { getFavoritesNumber } from "../../store/favorite-process/selectors";
 import { changeFavoritesNumber } from "../../store/favorite-process/favorite-process";
 import { Offer } from "../../types/offer";
+import { getOffers } from "../../store/offers-data/selectors";
 
 type ChangeFavoriteButtonProps = {
   offer: Offer;
@@ -11,16 +12,23 @@ type ChangeFavoriteButtonProps = {
 
 function ChangeFavoriteButton({ offer }: ChangeFavoriteButtonProps): JSX.Element {
   const dispatch = useAppDispatch();
-
+  const offers = useAppSelector(getOffers);
+  const favoriteNumber = useAppSelector(getFavoritesNumber);
   const [isFavorite, setIsFavorite] = useState(offer.isFavorite);
-  const favoriteNumber = useAppSelector(getFavoritesNumber)
+
+  useEffect(() => {
+    const currentFavoriteNumber = offers.filter((o) => o.isFavorite).length;
+    if (currentFavoriteNumber !== favoriteNumber) {
+      dispatch(changeFavoritesNumber(currentFavoriteNumber));
+    }
+  }, [offers, favoriteNumber, dispatch]);
 
   const handleFavorite = () => {
-    dispatch(postFavoriteAction({ id: offer.id, status: isFavorite ? 0 : 1 })),
-    dispatch(fetchFavoriteAction()),
-    setIsFavorite(!isFavorite)
-    isFavorite ? favoriteNumber > 0 && dispatch(changeFavoritesNumber(favoriteNumber - 1)) : dispatch(changeFavoritesNumber(favoriteNumber + 1))
-  }
+    setIsFavorite(!isFavorite);
+    const newFavoriteNumber = isFavorite ? favoriteNumber - 1 : favoriteNumber + 1;
+    dispatch(changeFavoritesNumber(newFavoriteNumber));
+    dispatch(postFavoriteAction({ id: offer.id, status: isFavorite ? 0 : 1 }));
+  };
 
   return (
     <button
@@ -35,4 +43,5 @@ function ChangeFavoriteButton({ offer }: ChangeFavoriteButtonProps): JSX.Element
     </button>
   );
 }
+
 export default ChangeFavoriteButton;
