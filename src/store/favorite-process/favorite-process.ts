@@ -15,9 +15,6 @@ export const favoriteProcess = createSlice({
   name: NameSpace.Favorite,
   initialState,
   reducers: {
-    changeFavoritesNumber: (state, action: PayloadAction<number>) => {
-      state.favoritesNumber = action.payload;
-    },
     changeFavoritesId: (state, action: PayloadAction<string[]>) => {
       state.favoriteOffersId = action.payload;
     },
@@ -39,4 +36,4 @@ export const favoriteProcess = createSlice({
 }
 );
 
-export const { changeFavoritesNumber, changeFavoritesId } = favoriteProcess.actions;
+export const { changeFavoritesId } = favoriteProcess.actions;

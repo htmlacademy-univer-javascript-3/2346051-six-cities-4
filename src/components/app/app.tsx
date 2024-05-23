@@ -13,21 +13,12 @@ import browserHistory from '../../browser-history.ts';
 import MainRouteRedirection from '../main-route-redirection/main-route-redirection.tsx';
 import { getAuthorizationStatus } from '../../store/user-process/selectors.ts';
 import { getIsOffersDataLoading } from '../../store/offers-data/selectors.ts';
-import { useEffect } from 'react';
-import { store } from '../../store/index.ts';
-import { fetchFavoriteAction } from '../../store/api-actions.ts';
 
 
 function App(): JSX.Element {
   const isOffersDataLoading = useAppSelector(getIsOffersDataLoading);
   const authorizationStatus = useAppSelector(getAuthorizationStatus);
   const isFavoriteOffersDataLoading = useAppSelector(getIsOffersDataLoading);
-
-  useEffect(() => {
-    if (authorizationStatus === AuthorizationStatus.Auth) {
-      store.dispatch(fetchFavoriteAction);
-    }
-  }, [authorizationStatus]);
 
   if (isOffersDataLoading || authorizationStatus === AuthorizationStatus.Unknown || isFavoriteOffersDataLoading) {
     return (

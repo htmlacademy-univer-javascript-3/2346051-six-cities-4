@@ -31,8 +31,9 @@ export const getSortedOffers = (
   offers: Offer[],
   sortType: string
 ) => {
+  const offersCopy = offers.slice();
   if (sortFunctions[sortType]) {
-    return sortFunctions[sortType](offers);
+    return sortFunctions[sortType](offersCopy);
   } else if (sortType === filters.POPULAR) {
     return offers;
   }

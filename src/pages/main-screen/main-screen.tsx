@@ -12,9 +12,9 @@ import EmptyOffers from '../empty-offers/empty-offers';
 function MainScreen(): JSX.Element {
   const city = useAppSelector(getCity);
   const offers = useAppSelector(getOffers);
+  const hasError = useAppSelector(getErrorStatus);
   const chosenOffers = offers.filter((offer) => offer.city.name === city);
   const points = chosenOffers.map((offer) => offer.location);
-  const hasError = useAppSelector(getErrorStatus);
 
   return (
     <div className="page page--gray page--main">

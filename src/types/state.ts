@@ -10,6 +10,8 @@ export type OfferData = {
     reviews: Review[];
     nearbyOffers: Offer[];
     isChosenOfferDataLoading: boolean;
+    isCommentPosting: boolean;
+    isCommentRejected: boolean;
   };
 
 export type OffersData = {
