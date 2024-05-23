@@ -20,7 +20,7 @@ function CommentForm(): JSX.Element {
 
   const MINIMUM_COMMENT_CHARACTERS = 50;
   const MAXIMUM_COMMENT_CHARACTERS = 300;
-  const isCommentPosting = useAppSelector(getIsCommentPosting)
+  const isCommentPosting = useAppSelector(getIsCommentPosting);
 
   const isSubmitInvalid = (
     formData.review.length < MINIMUM_COMMENT_CHARACTERS ||

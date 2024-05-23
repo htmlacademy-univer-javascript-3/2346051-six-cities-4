@@ -32,9 +32,7 @@ function ChangeFavoriteButton({ offerId, typeButton, width, height }: ChangeFavo
       dispatch(redirectToRoute(AppRoute.Login));
     } else {
       setIsSubmitting(true);
-      const updatedFavorites = isFavorite
-        ? favoritesOffersId.filter((id) => id !== offerId)
-        : [...favoritesOffersId, offerId];
+      const updatedFavorites = isFavorite ? favoritesOffersId.filter((id) => id !== offerId) : [...favoritesOffersId, offerId];
       dispatch(changeFavoritesId(updatedFavorites));
       setIsFavorite(!isFavorite);
       dispatch(postFavoriteAction({ id: offerId, status: isFavorite ? 0 : 1 }))

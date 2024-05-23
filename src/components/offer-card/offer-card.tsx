@@ -42,7 +42,7 @@ function OfferCard({ offer, cardType }: OfferProps): JSX.Element {
             typeButton='place-card'
             width='18'
             height='19'
-             />
+          />
         </div>
         <div className="place-card__rating rating">
           <div className="place-card__stars rating__stars">
