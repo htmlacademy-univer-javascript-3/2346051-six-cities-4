@@ -10,6 +10,8 @@ import { useEffect } from 'react';
 import { Header } from '../../components/header/header';
 import { getChosenOffer, getIsChosenOfferDataLoading, getNearbyOffers, getReviews } from '../../store/offer-data/selectors';
 import { getOffers } from '../../store/offers-data/selectors';
+import { changeHighlightedMarker } from '../../store/common-data/common-data';
+import ChangeFavoriteButton from '../../components/change-favorite-button/change-favorite-button';
 
 const MAXIMUM_NEARBY_PREVIEW = 3;
 
@@ -19,17 +21,18 @@ function OfferScreen(): JSX.Element {
   const reviews = useAppSelector(getReviews);
   const nearbyOffers = useAppSelector(getNearbyOffers);
   const city = useAppSelector(getOffers)[0].city;
+  const id = String(useParams().id);
 
   const displayedNearby = (nearbyOffers).slice(
     0,
     MAXIMUM_NEARBY_PREVIEW
   );
 
-  const id = String(useParams().id);
   useEffect(() => {
     dispatch(fetchOfferAction(id));
     dispatch(fetchReviewsAction(id));
     dispatch(fetchNearbyAction(id));
+    dispatch(changeHighlightedMarker(undefined));
   }, [dispatch, id]);
 
   const isChosenOfferDataLoading = useAppSelector(getIsChosenOfferDataLoading);
@@ -38,6 +41,9 @@ function OfferScreen(): JSX.Element {
       <LoadingScreen />
     );
   }
+
+  const bedrooms = offer?.bedrooms;
+  const maxAdults = offer?.maxAdults;
 
   return (
     <div className="page">
@@ -64,12 +70,12 @@ function OfferScreen(): JSX.Element {
                 <h1 className="offer__name">
                   {offer?.title}
                 </h1>
-                <button className="offer__bookmark-button button" type="button">
-                  <svg className="offer__bookmark-icon" width="31" height="33">
-                    <use xlinkHref="#icon-bookmark"></use>
-                  </svg>
-                  <span className="visually-hidden">To bookmarks</span>
-                </button>
+                <ChangeFavoriteButton
+                  offerId={id}
+                  typeButton='offer'
+                  width='31'
+                  height='33'
+                />
               </div>
               <div className="offer__rating rating">
                 <div className="offer__stars rating__stars">
@@ -83,10 +89,10 @@ function OfferScreen(): JSX.Element {
                   {offer?.type}
                 </li>
                 <li className="offer__feature offer__feature--bedrooms">
-                  {`${offer?.bedrooms} Bedrooms`}
+                  {`${bedrooms} ${bedrooms && bedrooms > 1 ? 'Bedrooms' : 'Bedroom'}`}
                 </li>
                 <li className="offer__feature offer__feature--adults">
-                  {`Max ${offer?.maxAdults} adults`}
+                  {`Max ${maxAdults} ${maxAdults && maxAdults > 1 ? 'adults' : 'adult'}`}
                 </li>
               </ul>
               <div className="offer__price">

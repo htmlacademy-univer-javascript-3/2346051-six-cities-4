@@ -10,11 +10,14 @@ export type OfferData = {
     reviews: Review[];
     nearbyOffers: Offer[];
     isChosenOfferDataLoading: boolean;
+    isCommentPosting: boolean;
+    isCommentRejected: boolean;
   };
 
 export type OffersData = {
     offers: Offer[];
     isOffersDataLoading: boolean;
+    hasError: boolean;
   };
 
 export type UserProcess = {
@@ -27,6 +30,13 @@ export type CommonData = {
   city: string;
   highlightedMarker: Point | undefined;
   error: string | null;
+}
+
+export type FavoriteProcess = {
+  favoriteOffers: Offer[];
+  isFavoriteOffersDataLoading: boolean;
+  favoritesNumber: number;
+  favoriteOffersId: string[];
 }
 
 export type State = ReturnType<typeof store.getState>;

@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom/client';
 import App from './components/app/app';
 import { Provider } from 'react-redux';
 import { store } from './store';
-import { checkAuthAction, fetchOffersAction } from './store/api-actions';
+import { checkAuthAction, fetchFavoriteAction, fetchOffersAction } from './store/api-actions';
 import ErrorMessage from './components/error-message/error-message';
 
 const root = ReactDOM.createRoot(
@@ -12,6 +12,7 @@ const root = ReactDOM.createRoot(
 
 store.dispatch(checkAuthAction());
 store.dispatch(fetchOffersAction());
+store.dispatch(fetchFavoriteAction());
 
 root.render(
   <React.StrictMode>

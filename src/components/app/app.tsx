@@ -5,7 +5,7 @@ import FavoritesScreen from '../../pages/favorites-screen/favorites-screen.tsx';
 import NotFoundScreen from '../../pages/not-found-screen/not-found-screen.tsx';
 import OfferScreen from '../../pages/offer-screen/offer-screen.tsx';
 import PrivateRoute from '../private-route/private-route.tsx';
-import { AppRoute } from '../../const.ts';
+import { AppRoute, AuthorizationStatus } from '../../const.ts';
 import { useAppSelector } from '../../hooks/index.ts';
 import LoadingScreen from '../../pages/loading-screen/loading-screen.tsx';
 import HistoryRouter from '../history-route/history-route.tsx';
@@ -16,15 +16,16 @@ import { getIsOffersDataLoading } from '../../store/offers-data/selectors.ts';
 
 
 function App(): JSX.Element {
-
   const isOffersDataLoading = useAppSelector(getIsOffersDataLoading);
   const authorizationStatus = useAppSelector(getAuthorizationStatus);
+  const isFavoriteOffersDataLoading = useAppSelector(getIsOffersDataLoading);
 
-  if (isOffersDataLoading || !authorizationStatus) {
+  if (isOffersDataLoading || authorizationStatus === AuthorizationStatus.Unknown || isFavoriteOffersDataLoading) {
     return (
       <LoadingScreen />
     );
   }
+
   return (
     <HistoryRouter history={browserHistory}>
       <Routes>

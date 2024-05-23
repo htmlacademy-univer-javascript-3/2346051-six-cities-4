@@ -9,6 +9,8 @@ import { UserData } from '../types/user-data';
 import { dropToken, saveToken } from '../services/token';
 import { Review } from '../types/review';
 import { setError } from './common-data/common-data';
+import { FavoriteData } from '../types/favorite-data';
+import { changeFavoritesId } from './favorite-process/favorite-process';
 
 
 export const clearErrorAction = createAsyncThunk(
@@ -44,29 +46,16 @@ export const checkAuthAction = createAsyncThunk<UserData, undefined, {
   }
 );
 
-export const loginAction = createAsyncThunk<UserData, AuthData, {
-  dispatch: AppDispatch;
-  state: State;
-  extra: AxiosInstance;
-}>(
-  'LOGIN_ACTION',
-  async ({ email, password }, { dispatch, extra: api }) => {
-    const { data } = await api.post<UserData>(APIRoute.Login, { email, password });
-    saveToken(data.token);
-    dispatch(redirectToRoute(AppRoute.Main));
-    return data;
-  },
-);
-
 export const logoutAction = createAsyncThunk<void, undefined, {
   dispatch: AppDispatch;
   state: State;
   extra: AxiosInstance;
 }>(
   'LOGOUT_ACTION',
-  async (_arg, { extra: api }) => {
+  async (_arg, { dispatch, extra: api }) => {
     await api.delete(APIRoute.Logout);
     dropToken();
+    dispatch(changeFavoritesId([]));
   },
 );
 
@@ -124,3 +113,40 @@ export const postReviewAction = createAsyncThunk<Review[], {
     },
   );
 
+export const fetchFavoriteAction = createAsyncThunk<Offer[], undefined, {
+  dispatch: AppDispatch;
+  state: State;
+  extra: AxiosInstance;
+}>(
+  'FETCH_FAVORITE_ACTION',
+  async (_arg, { extra: api }) => {
+    const { data } = await api.get<Offer[]>(APIRoute.Favorite);
+    return data;
+  },
+);
+
+export const loginAction = createAsyncThunk<UserData, AuthData, {
+  dispatch: AppDispatch;
+  state: State;
+  extra: AxiosInstance;
+}>(
+  'LOGIN_ACTION',
+  async ({ email, password }, { dispatch, extra: api }) => {
+    const { data } = await api.post<UserData>(APIRoute.Login, { email, password });
+    saveToken(data.token);
+    dispatch(fetchFavoriteAction());
+    dispatch(redirectToRoute(AppRoute.Main));
+    return data;
+  },
+);
+
+export const postFavoriteAction = createAsyncThunk<void, FavoriteData, {
+  dispatch: AppDispatch;
+  state: State;
+  extra: AxiosInstance;
+}>(
+  'CHANGE_FAVORITE_ACTION',
+  async ({ id, status }, { extra: api }) => {
+    await api.post<Offer>(`${APIRoute.Favorite}/${id}/${status}`);
+  },
+);

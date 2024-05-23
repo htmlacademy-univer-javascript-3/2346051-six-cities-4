@@ -1,9 +1,10 @@
 import { useAppDispatch } from '../../hooks';
 import { Offer } from '../../types/offer';
 import { Link } from 'react-router-dom';
-import { ratingPercentage } from '../../utils';
+import { listToCard, ratingPercentage, typeOfCardList } from '../../utils';
 import { fetchNearbyAction, fetchOfferAction, fetchReviewsAction } from '../../store/api-actions';
 import { changeHighlightedMarker } from '../../store/common-data/common-data';
+import ChangeFavoriteButton from '../change-favorite-button/change-favorite-button';
 
 type OfferProps = {
   offer: Offer;
@@ -13,32 +14,35 @@ type OfferProps = {
 function OfferCard({ offer, cardType }: OfferProps): JSX.Element {
   const dispatch = useAppDispatch();
   return (
-    <article className={cardType}
-      onMouseEnter={() => dispatch(changeHighlightedMarker(offer.location))}
-      onMouseLeave={() => dispatch(changeHighlightedMarker(undefined))}
+    <article
+      className={cardType}
+      {...(cardType === listToCard.get(typeOfCardList.standart) && {
+        onMouseEnter: () => dispatch(changeHighlightedMarker(offer.location)),
+        onMouseLeave: () => dispatch(changeHighlightedMarker(undefined))
+      })}
     >
       {offer.isPremium ? (
         <div className="place-card__mark">
           <span>Premium</span>
         </div>
       ) : null}
-      <div className="cities__image-wrapper place-card__image-wrapper">
+      <div className={`${cardType === listToCard.get(typeOfCardList.favourites) ? 'favorites' : 'cities'}__image-wrapper place-card__image-wrapper`}>
         <a href="#">
-          <img className="place-card__image" src={offer.previewImage} width="260" height="200" alt="Place image" />
+          <img className="place-card__image" src={offer.previewImage} width={cardType === listToCard.get(typeOfCardList.favourites) ? '150' : '260'} height={cardType === listToCard.get(typeOfCardList.favourites) ? '110' : '200'} alt="Place image" />
         </a>
       </div>
-      <div className="place-card__info">
+      <div className={(cardType === listToCard.get(typeOfCardList.favourites)) ? 'favorites__card-info place-card__info' : 'place-card__info'}>
         <div className="place-card__price-wrapper">
           <div className="place-card__price">
             <b className="place-card__price-value">&euro;{offer.price}</b>
             <span className="place-card__price-text">&#47;&nbsp;night</span>
           </div>
-          <button className={offer.isFavorite ? 'place-card__bookmark-button place-card__bookmark-button--active button' : 'place-card__bookmark-button button'} type="button">
-            <svg className="place-card__bookmark-icon" width="18" height="19">
-              <use xlinkHref="#icon-bookmark"></use>
-            </svg>
-            <span className="visually-hidden">To bookmarks</span>
-          </button>
+          <ChangeFavoriteButton
+            offerId={offer.id}
+            typeButton='place-card'
+            width='18'
+            height='19'
+          />
         </div>
         <div className="place-card__rating rating">
           <div className="place-card__stars rating__stars">

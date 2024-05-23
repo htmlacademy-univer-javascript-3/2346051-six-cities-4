@@ -1,7 +1,7 @@
-import { Fragment, useState } from 'react';
+import { Fragment, useEffect, useState } from 'react';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { postReviewAction } from '../../store/api-actions';
-import { getChosenOffer } from '../../store/offer-data/selectors';
+import { getChosenOffer, getIsCommentPosting, getIsCommentRejected } from '../../store/offer-data/selectors';
 
 function CommentForm(): JSX.Element {
   const [formData, setFormData] = useState({
@@ -20,14 +20,17 @@ function CommentForm(): JSX.Element {
 
   const MINIMUM_COMMENT_CHARACTERS = 50;
   const MAXIMUM_COMMENT_CHARACTERS = 300;
+  const isCommentPosting = useAppSelector(getIsCommentPosting);
 
   const isSubmitInvalid = (
     formData.review.length < MINIMUM_COMMENT_CHARACTERS ||
     formData.review.length > MAXIMUM_COMMENT_CHARACTERS ||
-    formData.rating === null
+    formData.rating === null ||
+    isCommentPosting
   );
 
   const dispatch = useAppDispatch();
+  const isCommentRejected = useAppSelector(getIsCommentRejected);
 
   const resetForm = () => {
     setFormData({
@@ -36,14 +39,14 @@ function CommentForm(): JSX.Element {
     });
   };
 
+  useEffect(() => {
+    if (!isCommentRejected) {
+      resetForm();
+    }
+  }, [isCommentRejected]);
+
   const submitHandle = () => {
     dispatch(postReviewAction({ id: id ? id : '', comment: formData.review, rating: Number(formData.rating) }));
-    setFormData((prevState) => ({
-      ...prevState,
-      rating: null,
-      review: ''
-    }));
-    resetForm();
   };
 
   const ratingTitles: { [key: number]: string } = {
