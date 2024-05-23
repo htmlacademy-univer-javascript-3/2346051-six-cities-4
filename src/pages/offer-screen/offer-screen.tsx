@@ -3,19 +3,15 @@ import Map from '../../components/map/map';
 import OfferList from '../../components/offer-list/offer-list';
 import { ratingPercentage, typeOfCardList } from '../../utils';
 import { useAppDispatch, useAppSelector } from '../../hooks';
-import { fetchNearbyAction, fetchOfferAction, fetchReviewsAction, postFavoriteAction } from '../../store/api-actions';
+import { fetchNearbyAction, fetchOfferAction, fetchReviewsAction } from '../../store/api-actions';
 import LoadingScreen from '../loading-screen/loading-screen';
 import { useParams } from 'react-router-dom';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { Header } from '../../components/header/header';
 import { getChosenOffer, getIsChosenOfferDataLoading, getNearbyOffers, getReviews } from '../../store/offer-data/selectors';
 import { getOffers } from '../../store/offers-data/selectors';
 import { changeHighlightedMarker } from '../../store/common-data/common-data';
-import { AppRoute, AuthorizationStatus } from '../../const';
-import { redirectToRoute } from '../../store/action';
-import { changeFavoritesId } from '../../store/favorite-process/favorite-process';
-import { getFavoriteOffersId } from '../../store/favorite-process/selectors';
-import { getAuthorizationStatus } from '../../store/user-process/selectors';
+import ChangeFavoriteButton from '../../components/change-favorite-button/change-favorite-button';
 
 const MAXIMUM_NEARBY_PREVIEW = 3;
 
@@ -25,11 +21,7 @@ function OfferScreen(): JSX.Element {
   const reviews = useAppSelector(getReviews);
   const nearbyOffers = useAppSelector(getNearbyOffers);
   const city = useAppSelector(getOffers)[0].city;
-  const favoritesOffersId = useAppSelector(getFavoriteOffersId);
-  const status = useAppSelector(getAuthorizationStatus);
-  const [isSubmitting, setIsSubmitting] = useState(false);
   const id = String(useParams().id);
-  const [isFavorite, setIsFavorite] = useState(favoritesOffersId.includes(id));
 
   const displayedNearby = (nearbyOffers).slice(
     0,
@@ -52,22 +44,6 @@ function OfferScreen(): JSX.Element {
 
   const bedrooms = offer?.bedrooms;
   const maxAdults = offer?.maxAdults;
-
-  const handleFavorite = () => {
-    if (status === AuthorizationStatus.NoAuth) {
-      dispatch(redirectToRoute(AppRoute.Login));
-    } else {
-      setIsSubmitting(true);
-      const updatedFavorites = isFavorite ? favoritesOffersId.filter((favoriteId) => favoriteId !== id) : [...favoritesOffersId, id];
-      dispatch(changeFavoritesId(updatedFavorites));
-      setIsFavorite(!isFavorite);
-      dispatch(postFavoriteAction({ id: id, status: isFavorite ? 0 : 1 }))
-        .then(() => setIsSubmitting(false))
-        .catch(() => {
-          setIsSubmitting(false);
-        });
-    }
-  };
 
   return (
     <div className="page">
@@ -94,12 +70,12 @@ function OfferScreen(): JSX.Element {
                 <h1 className="offer__name">
                   {offer?.title}
                 </h1>
-                <button className={favoritesOffersId.includes(id) ? 'bookmark-button button offer__bookmark-button offer__bookmark-button--active' : 'offer__bookmark-button button'} onClick={handleFavorite} disabled={isSubmitting} type="button">
-                  <svg className="offer__bookmark-icon" width="31" height="33">
-                    <use xlinkHref="#icon-bookmark"></use>
-                  </svg>
-                  <span className="visually-hidden">To bookmarks</span>
-                </button>
+                <ChangeFavoriteButton
+                  offerId={id}
+                  typeButton='offer'
+                  width='31'
+                  height='33'
+                />
               </div>
               <div className="offer__rating rating">
                 <div className="offer__stars rating__stars">
