@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { typeOfCardList } from '../../utils';
+import { TypeOfCardList } from '../../utils';
 import OfferList from '../../components/offer-list/offer-list';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { AppRoute } from '../../const';
@@ -41,7 +41,7 @@ function FavoritesScreen(): JSX.Element {
                         </a>
                       </div>
                     </div>
-                    <OfferList offers={favoriteOffers.filter((o) => o.city.name === city)} listType={typeOfCardList.favourites} />
+                    <OfferList offers={favoriteOffers.filter((o) => o.city.name === city)} listType={TypeOfCardList.favourites} />
                   </li>
                 ))}
               </ul>

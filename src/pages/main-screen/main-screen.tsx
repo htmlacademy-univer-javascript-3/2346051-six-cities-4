@@ -1,6 +1,6 @@
 import OfferList from '../../components/offer-list/offer-list';
 import Map from '../../components/map/map';
-import { typeOfCardList } from '../../utils';
+import { TypeOfCardList } from '../../utils';
 import { useAppSelector } from '../../hooks';
 import CityList from '../../components/city-list/city-list';
 import { Header } from '../../components/header/header';
@@ -35,7 +35,7 @@ function MainScreen(): JSX.Element {
                 <h2 className="visually-hidden">Places</h2>
                 <b className="places__found">{chosenOffers.length} places to stay in {city}</b>
                 <CardsSortingOptions />
-                <OfferList offers={chosenOffers} listType={typeOfCardList.standart} />
+                <OfferList offers={chosenOffers} listType={TypeOfCardList.standart} />
               </section>
               <div className="cities__right-section">
                 <section className="cities__map map">

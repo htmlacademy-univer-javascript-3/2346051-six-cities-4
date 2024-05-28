@@ -1,7 +1,7 @@
 import ReviewsList from '../../components/reviews-list/reviews-list';
 import Map from '../../components/map/map';
 import OfferList from '../../components/offer-list/offer-list';
-import { ratingPercentage, typeOfCardList } from '../../utils';
+import { ratingPercentage, TypeOfCardList } from '../../utils';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { fetchNearbyAction, fetchOfferAction, fetchReviewsAction } from '../../store/api-actions';
 import LoadingScreen from '../loading-screen/loading-screen';
@@ -138,7 +138,7 @@ function OfferScreen(): JSX.Element {
         <div className="container">
           <section className="near-places places">
             <h2 className="near-places__title">Other places in the neighbourhood</h2>
-            <OfferList offers={displayedNearby} listType={typeOfCardList.nearest} />
+            <OfferList offers={displayedNearby} listType={TypeOfCardList.nearest} />
           </section>
         </div>
       </main>
