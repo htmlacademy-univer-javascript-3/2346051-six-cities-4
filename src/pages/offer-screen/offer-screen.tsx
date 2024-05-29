@@ -12,6 +12,7 @@ import { getChosenOffer, getIsChosenOfferDataLoading, getNearbyOffers, getReview
 import { getOffers } from '../../store/offers-data/selectors';
 import { changeHighlightedMarker } from '../../store/common-data/common-data';
 import ChangeFavoriteButton from '../../components/change-favorite-button/change-favorite-button';
+import NotFoundScreen from '../not-found-screen/not-found-screen';
 
 const MAXIMUM_NEARBY_PREVIEW = 3;
 
@@ -20,7 +21,7 @@ function OfferScreen(): JSX.Element {
   const offer = useAppSelector(getChosenOffer);
   const reviews = useAppSelector(getReviews);
   const nearbyOffers = useAppSelector(getNearbyOffers);
-  const city = useAppSelector(getOffers)[0].city;
+  const offers = useAppSelector(getOffers);
   const id = String(useParams().id);
 
   const displayedNearby = (nearbyOffers).slice(
@@ -40,6 +41,10 @@ function OfferScreen(): JSX.Element {
     return (
       <LoadingScreen />
     );
+  }
+
+  if (!offer) {
+    return <NotFoundScreen />;
   }
 
   const bedrooms = offer?.bedrooms;
@@ -132,7 +137,7 @@ function OfferScreen(): JSX.Element {
             </div>
           </div>
           <section className="offer__map map">
-            <Map points={displayedNearby.map((nearOffer) => nearOffer.location)} city={nearbyOffers.length > 0 ? nearbyOffers[0].city : city} />
+            <Map points={displayedNearby.map((nearOffer) => nearOffer.location)} city={nearbyOffers.length > 0 ? nearbyOffers[0].city : offers[0].city} />
           </section>
         </section>
         <div className="container">
